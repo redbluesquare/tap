@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-sm-8">
+    <h3>Tasks #TODO</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Task</th>
+          <th>Planned Time</th>
+          <th>Planned Start</th>
+          <th>Priority</th>
+          <th> </th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ut of usertasks">
+          <td>{{ut.ddc_uwd_id}}</td>
+          <td>{{ut.task_title}}</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td><button class="btn btn-success" (click)="start(ut.ddc_uwd_id)">Start</button></td>
+          <td><button class="btn btn-danger" (click)="stop(ut.ddc_uwd_id)">Stop</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-4">
+    <div>
+      <h3>Tasks Carried Out</h3>
+      <p>Task1 | Time start | Time taken</p>
+      <p>Task2 | Time start | Time taken</p>
+      <p>Task3 | Time start | Time taken</p>
+    </div>
+  </div>
+</div>

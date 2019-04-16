@@ -59,15 +59,14 @@ export class HomeComponent implements OnInit {
   }
 
   toggleProcess(){
-    if(this.show_process==0){
+    if(this.show_process == 0){
       this.show_process = 1;
     }else{
-      this.show_process = 0
+      this.show_process = 0;
     }
   }
 
   ngOnInit() {
-    this.my_date = 
     this.getTaskplans(0);
     this.getTskplans(1);
   }

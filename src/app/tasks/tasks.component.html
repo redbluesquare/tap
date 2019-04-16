@@ -1,12 +1,61 @@
 <div class="row">
+    <div class="input-group input-group-sm mb-3">
+      <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search" >
+    </div>
     <div class="col-sm-8" *ngIf="tasks!=undefined">
-        <p *ngFor="let task of tasks">{{task.about}}</p>
+      <table class="table" *ngIf="task_id==undefined">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Identifier</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Parent Task</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasks | filter : searchText" (click)="editTask(task)">
+            <td>{{task.ddc_task_id}}</td>
+            <td>{{task.identifier}}</td>
+            <td>{{task.title}}</td>
+            <td>{{task.description}}</td>
+            <td>{{task.parent_title}}</td>
+            <td>{{task.category_title}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="task_id!=undefined">
+        <h3>Manage Task Process Steps</h3>
+        <div class="input-group input-group-sm mb-3">
+          <input type="text" class="form-control" readonly="true" placeholder="Task Process ID" [(ngModel)]="ddc_tpd_id">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <input name="identifier" type="text" class="form-control" placeholder="Step #" [(ngModel)]="task_step">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <textarea class="form-control" rows="5" placeholder="Process Step Detail" [(ngModel)]="task_detail"></textarea>
+        </div>
+        <button *ngIf="ddc_tpd_id != null" class="btn btn-danger link" (click)="deleteTaskPD()">Delete</button>
+        <button class="btn btn-success link pull-right" (click)="saveTPD()">Save Process Step</button>
+      </div>
+      <table class="table table-condensed">
+        <tbody>
+          <tr *ngFor="let tpd of taskpds" (click)="editTaskPD(tpd)">
+            <td>{{tpd.task_step}}</td>
+            <td>{{tpd.task_detail}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="col-sm-4">
-        <h3>Manage Tasks</h3>
+      <h3>Manage Tasks</h3>
       <div class="input-group input-group-sm mb-3">
         <input type="text" class="form-control" readonly="true" placeholder="ID" [(ngModel)]="task_id">
       </div>
+      <div class="input-group input-group-sm mb-3">
+          <input name="identifier" type="text" class="form-control" placeholder="Identifier" [(ngModel)]="identifier">
+        </div>
       <div class="input-group input-group-sm mb-3">
         <input name="title" type="text" class="form-control" placeholder="Title" [(ngModel)]="title">
       </div>
@@ -16,13 +65,16 @@
       <div class="input-group input-group-sm mb-3">
         <select class="form-control" [(ngModel)]="parent_id">
           <option value="0">- parent task -</option>
+          <option *ngFor="let tsk of tsks" value="{{tsk.cat_id}}">{{tsk.title}}</option>
         </select>
       </div>
       <div class="input-group input-group-sm mb-3">
         <select class="form-control" [(ngModel)]="cat_id">
-          <option value="0">- category -</option>
+          <option value="0">- Category -</option>
+          <option *ngFor="let cat of cats" value="{{cat.cat_id}}">{{cat.title}}</option>
         </select>
       </div>
-      <button class="btn btn-success link" (click)="save()">Save</button>
+      <button *ngIf="task_id != null" class="btn btn-danger link" (click)="deleteTask()">Delete</button>
+      <button class="btn btn-success link pull-right" (click)="save()">Save</button>
     </div>
   </div>

@@ -1,6 +1,23 @@
 <div class="row">
   <div class="col-sm-8" *ngIf="categories!=undefined">
-      <p *ngFor="let category of categories">{{category.about}}</p>
+      <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Parent Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let category of categories" (click)="editCategory(category)">
+              <td>{{category.ddc_category_id}}</td>
+              <td>{{category.title}}</td>
+              <td>{{category.description}}</td>
+              <td>{{category.parent_title}}</td>
+            </tr>
+          </tbody>
+        </table>
   </div>
   <div class="col-sm-4">
     <h3>Manage Categories</h3>
@@ -15,10 +32,12 @@
       </div>
       <div class="input-group input-group-sm mb-3">
         <select class="form-control" [(ngModel)]="parent_id">
-          <option value="0">- parent task -</option>
+          <option value="0">- parent category -</option>
+          <option *ngFor="let cat of cats" value="{{cat.cat_id}}">{{cat.title}}</option>
         </select>
       </div>
-      <button class="btn btn-success link" (click)="save()">Save</button>
+      <button *ngIf="cat_id != null" class="btn btn-danger link" (click)="deleteCat()">Delete</button>
+      <button class="btn btn-success link pull-right" (click)="save()">Save</button>
   </div>
   <div class="clearfix"></div>
 </div>

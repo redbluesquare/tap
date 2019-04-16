@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-sm-7">
+    <div class="row" *ngIf="planstate == 1">
+      <div class="col-sm-4">
+        <p style="line-height:0.8em;"><small>Task: {{task_title}}</small></p>
+        <p style="line-height:0.8em;"><small>ID: {{ddc_tp_id}}</small></p>
+      </div>
+      <div class="col-sm-4">
+        <p style="line-height:0.8em;"><small>Created On: {{created_on | date:'d MMM y'}}</small></p>
+        <p style="line-height:0.8em;"><small>Created By: {{user_id}}</small></p>
+      </div>
+      <div class="col-sm-4">
+        <p style="line-height:0.8em;"><small>Planned Start: <input type="text" class="form-control" [(ngModel)]="planned_start"></small></p>
+      </div>
+      <div class="col-sm-6">
+        <div class="group-form">
+          <label class="form-label">Responsible</label>
+          <input type="text" class="form-control" [(ngModel)]="responsible">
+        </div>
+        <div class="group-form">
+          <label>Priority</label>
+          <input type="text" class="form-control" [(ngModel)]="priority">
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label class="form-label">Comment</label><br>
+          <textarea class="form-control" [(ngModel)]="comment"></textarea>
+        </div>
+        <p style="text-align:right;"><button class="btn btn-primary" (click)="updateTP()">Update</button></p>
+      </div>
+    </div>
+    <h3>Task Plan</h3>
+    <table class="table table-condensed table-sm">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Task</th>
+          <th>Priority</th>
+          <th>Planned Start</th>
+          <th>Planned Time</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tp of taskplans" (click)="getTP(tp)">
+          <td>{{tp.ddc_tp_id}}</td>
+          <td>{{tp.task_title}}</td>
+          <td>{{tp.priority}}</td>
+          <td>{{tp.planned_date.split(" ")[1]}}</td>
+          <td>{{ (tp.planned_time/60) | number: '1.0-1'}}</td>
+          <td><button class="btn btn-warning">Del</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-5">
+    <div class="input-group input-group-sm mb-3">
+      <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search" >
+    </div>
+    <div *ngFor="let task of tasks | filter : searchText">
+      <p (click)="assignTask(task.ddc_task_id)">{{ task.title}} - {{ task.description}}</p>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</div>

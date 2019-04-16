@@ -7,64 +7,69 @@ import { DataApiService } from '../data-api.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  about:any;
+  
+  action_qty:number=0;
   data:any;
   categories:any;
   cat_id:number;
   task_id:number;
+  taskplans:any;
+  taskpds:any;
   title:string;
+  tsk:any;
+  tskplans:any;
   description:string;
   parent_id:number;
+  show_process:number=0;
   usertasks:any;
+  my_date:any;
 
   constructor(private apiData:DataApiService) { }
 
-  //Add a category
-  addUwd(){
+  actionTask(id,action){
     this.data = {
-      "ddc_category_id":this.cat_id,
-      "title":this.title,
-      "description":this.description,
-      "parent_id":this.parent_id
+      "ddc_tp_id":id,
+      "action":action,
+      "action_qty":this.action_qty
     }
-    this.apiData.addCategory(this.data).subscribe(category =>this.clearForm())
-  }
-
-  clearForm(){
-    this.cat_id = null;
-    this.title = null;
-    this.description = null;
-    this.parent_id = null;
-  }
-
-  //Delete a category
-  deleteCategory(){
-
+    this.apiData.actionTask(this.data)
+    .subscribe(tasks => this.resetScreen())
   }
   
-  //Get the category(s)
-  getCategories(id){
-    this.apiData.getCategories(id)
-    .subscribe(categories => this.categories = categories)
+  getTask(tp){
+    this.tsk = tp;
+    this.taskpds = tp.process;
   }
 
-  save(){
-    return true;
+  //Get the open task(s)
+  getTaskplans(id){
+    this.apiData.getTaskplans(id)
+    .subscribe(ut => this.taskplans = ut);
   }
 
-  start(id){
-    console.log(2)
+  //Get the closed task(s)
+  getTskplans(id){
+    this.apiData.getTaskplans(id)
+    .subscribe(tp => this.tskplans = tp);
   }
 
-  stop(id){
-    console.log(2*2)
+  resetScreen(){
+    this.getTaskplans(0);
+    this.getTskplans(1);
+  }
+
+  toggleProcess(){
+    if(this.show_process==0){
+      this.show_process = 1;
+    }else{
+      this.show_process = 0
+    }
   }
 
   ngOnInit() {
-    this.about = this.apiData.getUsertasks()
-    .subscribe(ut => this.usertasks = ut)
-
+    this.my_date = 
+    this.getTaskplans(0);
+    this.getTskplans(1);
   }
 
 }

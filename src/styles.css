@@ -2,3 +2,4 @@
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 .header{margin:0;background: #1535c7;width:100%;text-align: center;padding: 20px 30px;color:#fff;}
 .link{cursor:pointer;}
+.pull-right{float: right;}

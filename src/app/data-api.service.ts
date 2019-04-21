@@ -46,6 +46,10 @@ export class DataApiService {
   deleteTaskPD(id): Observable<any> {
     return this.http.delete<any>(this.taskprocessUrl+id.toString())
   }
+
+  deleteTaskPlan(id): Observable<any> {
+    return this.http.delete<any>(this.taskplansUrl+id.toString())
+  }
   
   getCategories(id = 0): Observable<any[]> {
     if(id!=0){

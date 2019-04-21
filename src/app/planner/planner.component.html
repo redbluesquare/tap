@@ -49,7 +49,7 @@
           <td>{{tp.priority}}</td>
           <td>{{tp.planned_date.split(" ")[1]}}</td>
           <td>{{ (tp.planned_time/60) | number: '1.0-1'}}</td>
-          <td><button class="btn btn-warning">Del</button></td>
+          <td><button (click)="removeTP(tp)" class="btn btn-warning">Del</button></td>
         </tr>
       </tbody>
     </table>

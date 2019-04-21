@@ -1,3 +1,106 @@
-<div>
-  <canvas id="canvas"></canvas>
+<div class="row">
+  <div class="col-sm-12" *ngIf="viewState==0">
+    <ul class="list-group small">
+      <li class="list-group-item link" (click)="getChartSummary()">Task Summary Report</li>
+      <li class="list-group-item link" (click)="updateView(2)">Material Report</li>
+    </ul>
+    <div class="col-sm-6">
+      
+    </div>
+  </div>
+  <div class="col-sm-12" *ngIf="viewState!=0">
+    <div class="link small text-right"(click)="updateView(0)" style="color:blue">Return to menu</div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="col-sm-8" *ngIf="viewState==1">
+    <h1>Task Summary Report {{ record_year+'-'+("0" + (record_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
+        <button class="btn btn-default pull-right">></button> 
+        <button class="btn btn-default pull-right"><</button> 
+    </h1>
+    <canvas id="canvas"></canvas>
+  </div>
+  <div class="col-sm-4" *ngIf="viewState==1">
+    <div class="itemTag" *ngFor="let tp of labels">{{tp}}<span (click)="removeItem('task',tp)">&times;</span></div>
+    <div class="clearfix"></div>
+    <table class="table table-condensed table-sm">
+      <tbody>
+        <tr class="small" *ngFor="let tp of tskplans">
+          <td>{{tp.task_title}}</td>
+          <td class="text-right">{{tp.process_time/60 | number:'1.0-2'}}</td>
+          <td class="text-right">{{tp.avg_process_time/60 | number:'1.0-2'}}</td>
+          <td class="text-right">{{tp.max_process_time/60 | number:'1.0-2'}}</td>
+          <td class="text-right">{{tp.min_process_time/60 | number:'1.0-2'}}</td>
+        </tr>
+      </tbody>
+  </table>
+  </div>
+  <div class="col-sm-12" *ngIf="viewState==2">
+    <div class="row">
+      <div class="col-sm-3">
+        <p>{{material}}</p>
+      </div>
+      <div class="col-sm-3">
+        <p>{{start_date}}</p>
+      </div>
+      <div class="col-sm-3">
+        <p>{{end_date}}</p>
+      </div>
+      <div class="col-sm-3">
+        <p></p>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class="col-sm-8">
+          <h1>Material Report {{ record_year+'-'+("0" + (record_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
+            <button class="btn btn-default pull-right">></button> 
+            <button class="btn btn-default pull-right"><</button> 
+          </h1>
+        <table class="table table-condensed small">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Plant</th>
+              <th>Material</th>
+              <th>Picks</th>
+              <th>Receipts</th>
+              <th>Transfers</th>
+              <th>Returns</th>
+              <th>Axa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mm of material_moves">
+              <td>{{mm.record_date}}</td>
+              <td>{{mm.plant}}</td>
+              <td>{{mm.material}}</td>
+              <td>{{mm.picks}}</td>
+              <td>{{mm.receipts}}</td>
+              <td>{{mm.transfers}}</td>
+              <td>{{mm.returns}}</td>
+              <td>{{mm.axa}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-4">
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label class="small" for="start_date">Start Date <br>(yyyy-mm-dd)</label>
+              <input type="calendar" class="form-control" placeholder="Start Date" [(ngModel)]="start_date">
+            </div>
+            <div class="form-group col-sm-6">
+              <label class="small" for="end_date">End Date <br>(yyyy-mm-dd)</label>
+              <input type="calendar" class="form-control" placeholder="End Date" [(ngModel)]="end_date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="small" for="material">Material</label>
+            <input type="text" class="form-control" id="material" placeholder="Material" [(ngModel)]="material">
+          </div>
+          <button class="btn btn-success pull-right" (click)="updateMatMoves()">Update</button>
+      </div>
+    </div>
+  </div>
 </div>
+

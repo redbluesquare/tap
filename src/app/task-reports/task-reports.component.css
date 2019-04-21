@@ -1,0 +1,13 @@
+.itemTag{
+    display: inline-block;
+    height:1.4em;
+    background: cornflowerblue;
+    padding: 3px 20px; 
+    border-radius: 12px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 0.8em;
+    line-height: 0.9em;
+}
+.itemTag span{position:relative;left:10px;cursor: pointer;color:rgba(0,0,0,0.5)}
+.itemTag span:hover{color:red}

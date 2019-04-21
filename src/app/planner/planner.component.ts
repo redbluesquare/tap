@@ -78,6 +78,11 @@ export class PlannerComponent implements OnInit {
     this.planstate = 1;
   }
 
+  removeTP(tp){
+    this.apiData.deleteTaskPlan(tp.ddc_tp_id)
+    .subscribe(tp => this.clearForm())
+  }
+
   updateTP(){
     this.data = {
       "comment":this.comment,

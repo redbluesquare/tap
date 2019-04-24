@@ -11,6 +11,8 @@ export class DataApiService {
   constructor(private http:HttpClient) { }
 
   private categoriesUrl = 'http://localhost:5001/categories/';  // URL to categories api
+  private locationsUrl = 'http://localhost:5001/locations/';  // URL to web api
+  private materialUrl = 'http://localhost:5001/materials/';
   private taskactionsUrl = 'http://localhost:5001/taskactions/';  // URL to task actions api
   private taskplansUrl = 'http://localhost:5001/taskplans/';  // URL to task planner api
   private taskprocessUrl = 'http://localhost:5001/taskprocesses/' //URL to task process details api
@@ -56,6 +58,18 @@ export class DataApiService {
       this.categoriesUrl+id.toString()
     }
     return this.http.get<any[]>(this.categoriesUrl)
+  }
+
+  getLocations(data): Observable<any> {
+    if(data != undefined){
+      data = 'pick_type/'+data.pick_type;
+    }
+    return this.http.get<any>(this.locationsUrl+data);
+  }
+
+  getMatMoves(mat=''): Observable<any[]> {
+
+    return this.http.get<any[]>(this.materialUrl+mat)
   }
 
   getTaskplans(status = 0): Observable<any[]> {

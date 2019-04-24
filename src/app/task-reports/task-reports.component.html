@@ -1,11 +1,12 @@
 <div class="row">
-  <div class="col-sm-12" *ngIf="viewState==0">
+  <div class="col-sm-4" *ngIf="viewState==0">
     <ul class="list-group small">
       <li class="list-group-item link" (click)="getChartSummary()">Task Summary Report</li>
-      <li class="list-group-item link" (click)="updateView(2)">Material Report</li>
+      <li class="list-group-item link" (click)="updateView(2)">Materials Report</li>
+      <li class="list-group-item link" (click)="updateView(3)">Locations Report</li>
     </ul>
-    <div class="col-sm-6">
-      
+    <div class="col-sm-8" *ngIf="viewState==0">
+      <canvas width="1080px" height="800px" #myCanvas stlye="border:1px solid #aaa;"></canvas>
     </div>
   </div>
   <div class="col-sm-12" *ngIf="viewState!=0">
@@ -35,21 +36,6 @@
   </table>
   </div>
   <div class="col-sm-12" *ngIf="viewState==2">
-    <div class="row">
-      <div class="col-sm-3">
-        <p>{{material}}</p>
-      </div>
-      <div class="col-sm-3">
-        <p>{{start_date}}</p>
-      </div>
-      <div class="col-sm-3">
-        <p>{{end_date}}</p>
-      </div>
-      <div class="col-sm-3">
-        <p></p>
-      </div>
-    </div>
-    <div class="clearfix"></div>
     <div class="row">
       <div class="col-sm-8">
           <h1>Material Report {{ record_year+'-'+("0" + (record_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
@@ -99,6 +85,98 @@
             <input type="text" class="form-control" id="material" placeholder="Material" [(ngModel)]="material">
           </div>
           <button class="btn btn-success pull-right" (click)="updateMatMoves()">Update</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12" *ngIf="viewState==3">
+    <div class="row">
+      <div class="col-sm-8">
+          <h1>Location Report {{ record_year+'-'+("0" + (record_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
+            <button class="btn btn-default pull-right">></button> 
+            <button class="btn btn-default pull-right"><</button> 
+          </h1>
+        <table class="table table-condensed small">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Area</th>
+              <th>Location Type</th>
+              <th>Pick Station</th>
+              <th>Location</th>
+              <th>Picks</th>
+              <th>Receipts</th>
+              <th>Transfers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let l of locations">
+              <td>{{l.record_date}}</td>
+              <td>{{l.area}}</td>
+              <td>{{l.loc_type}}</td>
+              <td>{{l.pick_station}}</td>
+              <td>{{l.location}}</td>
+              <td>{{l.picks}}</td>
+              <td>{{l.receipts}}</td>
+              <td>{{l.transfers}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-4">
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label class="small" for="start_date">Start Date <br>(yyyy-mm-dd)</label>
+              <input type="calendar" class="form-control" placeholder="Start Date" [(ngModel)]="start_date">
+            </div>
+            <div class="form-group col-sm-6">
+              <label class="small" for="end_date">End Date <br>(yyyy-mm-dd)</label>
+              <input type="calendar" class="form-control" placeholder="End Date" [(ngModel)]="end_date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="small" for="location">Location</label>
+            <input type="text" class="form-control" placeholder="Location" [(ngModel)]="location">
+          </div>
+          <button class="btn btn-success pull-right" (click)="updateLocation()">Update</button>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="viewState==3">
+    <div class="col-sm-12">
+      <div>
+        <button class="btn btn-default" (click)="pickType(1)">Pick Locations only</button> 
+        <button class="btn btn-default" (click)="pickType(2)">Reserve Locations only</button> 
+        <button class="btn btn-default" (click)="pickType(0)">Show all locations</button>
+      </div>
+      <canvas width="1080px" height="800px" #myCanvas stlye="border:1px solid #aaa;"></canvas>
+      <!-- The Modal -->
+      <div [ngClass]="modalClass" class="modal">
+        <div class="modal-header">
+          <span (click)="COTMpic()" class="close">&times;</span>
+          <h2>Location Information</h2>   
+        </div>
+        <!-- Modal content -->
+        <div class="modal-content">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th>Location:</th><td>{{location_info?.area}} - {{location_info?.aisle}} - {{location_info?.bay}} - {{location_info?.level}} - {{location_info?.position}}</td>
+              </tr>
+              <tr>
+                <th>Pick Type:</th><td>{{location_info?.pick_type}}</td>
+              </tr>
+              <tr>
+                <th>Location Type:</th><td>{{location_info?.location_type}}</td>
+              </tr>
+              <tr>
+                <th>Picks:</th><td>{{location_info?.picks}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button (click)="COTMpic()" class="btn btn-default pull-right">OK</button>
+        </div>
       </div>
     </div>
   </div>

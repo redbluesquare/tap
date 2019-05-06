@@ -1,0 +1,11 @@
+<button class="btn btn-primary btn-sm pull-right" [routerLink]="['/']" routerLinkActive="router-link-active">Return Home</button>
+<div class="row" *ngFor="let task of tasks">
+  <div class="col-sm-12">
+    <h1>{{task.title}}</h1>
+    <h4>Process Steps</h4>
+  </div>
+  <ul>
+    <li *ngFor="let tp of task.process">{{tp.task_detail}}</li>
+  </ul>
+</div>
+

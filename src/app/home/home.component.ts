@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataApiService } from '../data-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,8 @@ export class HomeComponent implements OnInit {
   usertasks:any;
   my_date:any;
 
-  constructor(private apiData:DataApiService) { }
+  constructor(private apiData:DataApiService, 
+    private router:Router) { }
 
   actionTask(id, action, task_id){
     this.data = {
@@ -34,7 +36,14 @@ export class HomeComponent implements OnInit {
       "action_qty":this.action_qty
     }
     this.apiData.actionTask(this.data)
-    .subscribe(tasks => this.resetScreen())
+    .subscribe(tasks => {
+      if(action == 'start'){
+        //Go to a new page to get DWR data
+        this.router.navigate(['/runtask/',tasks])
+      }else{
+        this.resetScreen();
+      }
+    })
   }
   
   getTask(tp){

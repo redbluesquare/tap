@@ -55,7 +55,7 @@ export class DataApiService {
   
   getCategories(id = 0): Observable<any[]> {
     if(id!=0){
-      this.categoriesUrl+id.toString()
+      this.categoriesUrl = this.categoriesUrl+id.toString()
     }
     return this.http.get<any[]>(this.categoriesUrl)
   }
@@ -81,15 +81,15 @@ export class DataApiService {
   }
 
   getTasks(id = 0): Observable<any[]> {
-    if(id!=0){
-      this.tasksUrl+id.toString()
+    if(id > 0){
+      this.tasksUrl = this.tasksUrl+id.toString();
     }
     return this.http.get<any[]>(this.tasksUrl)
   }
 
   getUsertasks(id = 0): Observable<any[]> {
-    if(id!=0){
-      this.tasksUrl+id.toString()
+    if(id > 0){
+      this.tasksUrl = this.tasksUrl+id.toString()
     }
     return this.http.get<any[]>(this.tasksUrl)
   }

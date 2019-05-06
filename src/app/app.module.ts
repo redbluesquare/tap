@@ -13,6 +13,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { PlannerComponent} from './planner/planner.component';
 import { TaskReportsComponent } from './task-reports/task-reports.component';
+import { RuntaskComponent } from './runtask/runtask.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { TaskReportsComponent } from './task-reports/task-reports.component';
     ToolbarComponent,
     PlannerComponent,
     FilterPipe,
-    TaskReportsComponent
+    TaskReportsComponent,
+    RuntaskComponent
   ],
   imports: [
     BrowserModule,

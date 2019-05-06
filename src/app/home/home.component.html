@@ -40,7 +40,7 @@
             <span *ngIf="tp.start_time!=null">{{tp.start_time*1000 | date: 'HH:mm:ss'}}</span>
             <button *ngIf="tp.start_time==null" class="btn btn-success" (click)="actionTask(tp.ddc_tp_id,'start')">Start</button>
           </td>
-          <td><button class="btn btn-danger" (click)="actionTask(tp.ddc_tp_id,'stop')">Stop</button></td>
+          <td><button class="btn btn-danger" (click)="actionTask(tp.ddc_tp_id,'stop',tp.task_id)">Stop</button></td>
         </tr>
       </tbody>
     </table>

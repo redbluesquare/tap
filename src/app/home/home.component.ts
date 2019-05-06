@@ -26,10 +26,11 @@ export class HomeComponent implements OnInit {
 
   constructor(private apiData:DataApiService) { }
 
-  actionTask(id,action){
+  actionTask(id, action, task_id){
     this.data = {
       "ddc_tp_id":id,
       "action":action,
+      "task_id":task_id,
       "action_qty":this.action_qty
     }
     this.apiData.actionTask(this.data)

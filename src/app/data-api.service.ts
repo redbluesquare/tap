@@ -10,6 +10,8 @@ export class DataApiService {
 
   constructor(private http:HttpClient) { }
 
+  url = ''
+
   private areasUrl = 'http://localhost:5001/areas/';  // URL to categories api
   private categoriesUrl = 'http://localhost:5001/categories/';  // URL to categories api
   private locationsUrl = 'http://localhost:5001/locations/';  // URL to web api
@@ -79,8 +81,7 @@ export class DataApiService {
   }
 
   getTaskplans(status = 0, id = 0): Observable<any[]> {
-    this.taskplansUrl = this.taskplansUrl+status.toString()
-    return this.http.get<any[]>(this.taskplansUrl)
+    return this.http.get<any[]>(this.taskplansUrl+status.toString())
   }
 
   getTaskProcesses(status = 0): Observable<any[]> {
@@ -89,16 +90,22 @@ export class DataApiService {
 
   getTasks(id = 0): Observable<any[]> {
     if(id > 0){
-      this.tasksUrl = this.tasksUrl+id.toString();
+      this.url = id.toString()
     }
-    return this.http.get<any[]>(this.tasksUrl)
+    else{
+      this.url = ''
+    }
+    return this.http.get<any[]>(this.tasksUrl+this.url)
   }
 
   getUsertasks(id = 0): Observable<any[]> {
     if(id > 0){
-      this.tasksUrl = this.tasksUrl+id.toString()
+      this.url = id.toString()
     }
-    return this.http.get<any[]>(this.tasksUrl)
+    else{
+      this.url = ''
+    }
+    return this.http.get<any[]>(this.tasksUrl+this.url)
   }
 
   updateTask(data): Observable<any> {

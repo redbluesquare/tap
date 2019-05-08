@@ -10,6 +10,7 @@ export class DataApiService {
 
   constructor(private http:HttpClient) { }
 
+  private areasUrl = 'http://localhost:5001/areas/';  // URL to categories api
   private categoriesUrl = 'http://localhost:5001/categories/';  // URL to categories api
   private locationsUrl = 'http://localhost:5001/locations/';  // URL to web api
   private materialUrl = 'http://localhost:5001/materials/';
@@ -52,6 +53,11 @@ export class DataApiService {
   deleteTaskPlan(id): Observable<any> {
     return this.http.delete<any>(this.taskplansUrl+id.toString())
   }
+
+  getAreas(): Observable<any> {
+
+    return this.http.get<any>(this.areasUrl);
+  }
   
   getCategories(id = 0): Observable<any[]> {
     if(id!=0){
@@ -72,8 +78,13 @@ export class DataApiService {
     return this.http.get<any[]>(this.materialUrl+mat)
   }
 
-  getTaskplans(status = 0): Observable<any[]> {
-    return this.http.get<any[]>(this.taskplansUrl+status.toString())
+  getTaskplans(status = 0, id = 0): Observable<any[]> {
+    if(id > 0){
+      this.taskplansUrl = this.taskplansUrl+status.toString()+'/'+id.toString();
+    }else{
+      this.taskplansUrl = this.taskplansUrl+status.toString()
+    }
+    return this.http.get<any[]>(this.taskplansUrl)
   }
 
   getTaskProcesses(status = 0): Observable<any[]> {

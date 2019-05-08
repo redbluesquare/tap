@@ -52,8 +52,8 @@ export class HomeComponent implements OnInit {
   }
 
   //Get the open task(s)
-  getTaskplans(id){
-    this.apiData.getTaskplans(id)
+  getTaskplans(state,id = 0){
+    this.apiData.getTaskplans(state,id)
     .subscribe(ut => this.taskplans = ut);
   }
 

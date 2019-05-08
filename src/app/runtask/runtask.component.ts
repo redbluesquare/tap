@@ -17,16 +17,16 @@ export class RuntaskComponent implements OnInit {
   constructor(private apiData:DataApiService,
     private route: ActivatedRoute) { }
 
-  //Get the task(s)
-  getTasks(id){
-    this.apiData.getTasks(id)
-    .subscribe(tasks => this.tasks = tasks);
+  //Get the open task(s)
+  getTaskplans(state,id = 0){
+    this.apiData.getTaskplans(state,id)
+    .subscribe(ut => this.tasks = ut);
   }
 
 
   ngOnInit() {
     //Get the task
-    this.getTasks(+this.route.snapshot.paramMap.get('id'));
+    this.getTaskplans(0,+this.route.snapshot.paramMap.get('id'));
   }
 
 }

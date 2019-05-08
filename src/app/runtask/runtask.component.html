@@ -4,8 +4,8 @@
     <h1>{{task.title}}</h1>
     <h4>Process Steps</h4>
   </div>
-  <ul>
-    <li *ngFor="let tp of task.process">{{tp.task_detail}}</li>
-  </ul>
+  <div class="col-sm-8" *ngFor="let tp of task.process">
+    <p>{{tp.task_detail}} <button class="btn btn-sm btn-primary pull-right">Run</button></p>
+  </div>
 </div>
 

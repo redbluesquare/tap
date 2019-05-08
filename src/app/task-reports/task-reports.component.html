@@ -91,33 +91,79 @@
   <div class="col-sm-12" *ngIf="viewState==3">
     <div class="row">
       <div class="col-sm-8">
-          <h1>Location Report {{ record_year+'-'+("0" + (record_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
-            <button class="btn btn-default pull-right">></button> 
-            <button class="btn btn-default pull-right"><</button> 
-          </h1>
-        <table class="table table-condensed small">
+        <h1>Location Report {{ record_year+'-'+("0" + (record_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
+          <button class="btn btn-default pull-right">></button> 
+          <button class="btn btn-default pull-right"><</button> 
+        </h1>
+        <table class="table table-sm table-striped">
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Area</th>
-              <th>Location Type</th>
-              <th>Pick Station</th>
-              <th>Location</th>
-              <th>Picks</th>
-              <th>Receipts</th>
-              <th>Transfers</th>
+              <td><b>Business</b></td>
+              <td><b>Total Locations</b></td>
+              <td><b>Occupied</b></td>
+              <td></td>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let l of locations">
-              <td>{{l.record_date}}</td>
-              <td>{{l.area}}</td>
-              <td>{{l.loc_type}}</td>
-              <td>{{l.pick_station}}</td>
-              <td>{{l.location}}</td>
-              <td>{{l.picks}}</td>
-              <td>{{l.receipts}}</td>
-              <td>{{l.transfers}}</td>
+            <tr *ngFor="let bu of bus">
+              <td>{{bu.BU}}</td>
+              <td>{{bu.Locations}}</td>
+              <td>{{bu.Occupied}}</td>
+              <td><button (click)="getAreatypes(bu.at)" class="btn btn-sm btn-default">Show</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table table-sm table-striped" *ngIf="area_types">
+          <thead>
+            <tr>
+              <td><b>Area Type</b></td>
+              <td><b>Total Locations</b></td>
+              <td><b>Occupied</b></td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let at of area_types">
+                <td>{{at.area_type}}</td>
+                <td>{{at.Locations}}</td>
+                <td>{{at.Occupied}}</td>
+                <td><button (click)="getArea(at.areas)" class="btn btn-sm btn-default">Show</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table table-sm table-striped" *ngIf="areas">
+          <thead>
+            <tr>
+              <td><b>Area</b></td>
+              <td><b>Total Locations</b></td>
+              <td><b>Occupied</b></td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let area of areas">
+                <td>{{area.area}}</td>
+                <td>{{area.Locations}}</td>
+                <td>{{area.Occupied}}</td>
+                <td><button (click)="getAisle(area.aisles)" class="btn btn-sm btn-default">Show</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table table-sm table-striped" *ngIf="aisles">
+          <thead>
+            <tr>
+              <td><b>Aisle</b></td>
+              <td><b>Total Locations</b></td>
+              <td><b>Occupied</b></td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let aisle of aisles">
+                <td>{{aisle.aisle}}</td>
+                <td>{{aisle.Locations}}</td>
+                <td>{{aisle.Occupied}}</td>
+                <td> </td>
             </tr>
           </tbody>
         </table>
@@ -138,45 +184,6 @@
             <input type="text" class="form-control" placeholder="Location" [(ngModel)]="location">
           </div>
           <button class="btn btn-success pull-right" (click)="updateLocation()">Update</button>
-      </div>
-    </div>
-  </div>
-  <div class="row" *ngIf="viewState==3">
-    <div class="col-sm-12">
-      <div>
-        <button class="btn btn-default" (click)="pickType(1)">Pick Locations only</button> 
-        <button class="btn btn-default" (click)="pickType(2)">Reserve Locations only</button> 
-        <button class="btn btn-default" (click)="pickType(0)">Show all locations</button>
-      </div>
-      <canvas width="1080px" height="800px" #myCanvas stlye="border:1px solid #aaa;"></canvas>
-      <!-- The Modal -->
-      <div [ngClass]="modalClass" class="modal">
-        <div class="modal-header">
-          <span (click)="COTMpic()" class="close">&times;</span>
-          <h2>Location Information</h2>   
-        </div>
-        <!-- Modal content -->
-        <div class="modal-content">
-          <table class="table">
-            <tbody>
-              <tr>
-                <th>Location:</th><td>{{location_info?.area}} - {{location_info?.aisle}} - {{location_info?.bay}} - {{location_info?.level}} - {{location_info?.position}}</td>
-              </tr>
-              <tr>
-                <th>Pick Type:</th><td>{{location_info?.pick_type}}</td>
-              </tr>
-              <tr>
-                <th>Location Type:</th><td>{{location_info?.location_type}}</td>
-              </tr>
-              <tr>
-                <th>Picks:</th><td>{{location_info?.picks}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button (click)="COTMpic()" class="btn btn-default pull-right">OK</button>
-        </div>
       </div>
     </div>
   </div>

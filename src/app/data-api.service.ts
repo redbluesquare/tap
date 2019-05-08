@@ -79,11 +79,7 @@ export class DataApiService {
   }
 
   getTaskplans(status = 0, id = 0): Observable<any[]> {
-    if(id > 0){
-      this.taskplansUrl = this.taskplansUrl+status.toString()+'/'+id.toString();
-    }else{
-      this.taskplansUrl = this.taskplansUrl+status.toString()
-    }
+    this.taskplansUrl = this.taskplansUrl+status.toString()
     return this.http.get<any[]>(this.taskplansUrl)
   }
 

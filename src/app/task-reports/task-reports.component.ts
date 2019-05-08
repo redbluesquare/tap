@@ -53,10 +53,13 @@ export class TaskReportsComponent implements OnInit {
 
   getAreatypes(at){
     this.area_types = at;
+    this.areas = undefined;
+    this.aisles = undefined;
   }
 
   getArea(areas){
     this.areas = areas;
+    this.aisles = undefined;
   }
 
   getAisle(aisles){

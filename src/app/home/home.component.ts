@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
     .subscribe(tasks => {
       if(action == 'start'){
         //Go to a new page to get DWR data
-        this.router.navigate(['/runtask/',tasks])
+        this.router.navigate(['/runtask/',id])
       }else{
         this.resetScreen();
       }

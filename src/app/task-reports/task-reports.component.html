@@ -101,6 +101,7 @@
               <td><b>Business</b></td>
               <td><b>Total Locations</b></td>
               <td><b>Occupied</b></td>
+              <td><b>Unit Qty</b></td>
               <td></td>
             </tr>
           </thead>
@@ -109,6 +110,7 @@
               <td>{{bu.BU}}</td>
               <td>{{bu.Locations}}</td>
               <td>{{bu.Occupied}}</td>
+              <td>{{bu.Units}}</td>
               <td><button (click)="getAreatypes(bu.at)" class="btn btn-sm btn-default">Show</button></td>
             </tr>
           </tbody>
@@ -119,6 +121,7 @@
               <td><b>Area Type</b></td>
               <td><b>Total Locations</b></td>
               <td><b>Occupied</b></td>
+              <td><b>Unit Qty</b></td>
               <td></td>
             </tr>
           </thead>
@@ -127,6 +130,7 @@
                 <td>{{at.area_type}}</td>
                 <td>{{at.Locations}}</td>
                 <td>{{at.Occupied}}</td>
+                <td>{{at.Units}}</td>
                 <td><button (click)="getArea(at.areas)" class="btn btn-sm btn-default">Show</button></td>
             </tr>
           </tbody>
@@ -137,6 +141,7 @@
               <td><b>Area</b></td>
               <td><b>Total Locations</b></td>
               <td><b>Occupied</b></td>
+              <td><b>Unit Qty</b></td>
               <td></td>
             </tr>
           </thead>
@@ -145,6 +150,7 @@
                 <td>{{area.area}}</td>
                 <td>{{area.Locations}}</td>
                 <td>{{area.Occupied}}</td>
+                <td>{{area.Units}}</td>
                 <td><button (click)="getAisle(area.aisles)" class="btn btn-sm btn-default">Show</button></td>
             </tr>
           </tbody>
@@ -155,6 +161,7 @@
               <td><b>Aisle</b></td>
               <td><b>Total Locations</b></td>
               <td><b>Occupied</b></td>
+              <td><b>Unit Qty</b></td>
               <td></td>
             </tr>
           </thead>
@@ -163,6 +170,7 @@
                 <td>{{aisle.aisle}}</td>
                 <td>{{aisle.Locations}}</td>
                 <td>{{aisle.Occupied}}</td>
+                <td>{{aisle.Units}}</td>
                 <td> </td>
             </tr>
           </tbody>

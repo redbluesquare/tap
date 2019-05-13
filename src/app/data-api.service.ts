@@ -11,6 +11,7 @@ export class DataApiService {
   constructor(private http:HttpClient) { }
 
   url = ''
+  data:string;
 
   private areasUrl = 'http://localhost:5001/areas/';  // URL to categories api
   private categoriesUrl = 'http://localhost:5001/categories/';  // URL to categories api
@@ -81,7 +82,11 @@ export class DataApiService {
   }
 
   getTaskplans(status = 0, id = 0): Observable<any[]> {
-    return this.http.get<any[]>(this.taskplansUrl+status.toString())
+    this.data = '';
+    if(id !=0){
+      this.data = '/'+id.toString()
+    }
+    return this.http.get<any[]>(this.taskplansUrl+status.toString()+this.data)
   }
 
   getTaskProcesses(status = 0): Observable<any[]> {

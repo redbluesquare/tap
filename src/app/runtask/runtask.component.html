@@ -1,11 +1,95 @@
 <button class="btn btn-primary btn-sm pull-right" [routerLink]="['/']" routerLinkActive="router-link-active">Return Home</button>
-<div class="row" *ngFor="let task of tasks">
-  <div class="col-sm-12">
-    <h1>{{task.title}}</h1>
-    <h4>Process Steps</h4>
+<div  *ngIf="id != 23">
+    <div class="row" *ngFor="let task of tasks">
+      <div class="col-sm-12">
+        <h1>{{task.task_title}}</h1>
+        <p>{{task.comment}}</p>
+        <h4>Process Steps</h4>
+      </div>
+      <div class="col-sm-8" *ngFor="let tp of task.process">
+        <p>{{tp.task_detail}} <button class="btn btn-sm btn-primary pull-right">Run</button></p>
+      </div>
+    </div>
+</div>
+<div class="row" *ngIf="id==23">
+  <div class="col-sm-8">
+    <div *ngIf="inv_status==0">
+      <h3>Select a carrier</h3>
+      <div *ngFor="let carrier of carriers">
+        <p (click)="selectCarrier(carrier)">{{carrier.title}}</p>
+      </div>
+    </div>
+    <div *ngIf="inv_status==1">
+      <button class="btn btn-default pull-right">Approve Invoice</button>
+      <button class="btn btn-default pull-right">Get Approval Text</button>
+      <button class="btn btn-default" (click)="resetCarriers()">Close</button>
+      <div class="row" style="margin-top:5px;">
+        <div class="col-sm-6">
+          <h3>{{carrier.title}}</h3>
+        </div>
+        <div class="col-sm-2">
+          <label>Account: </label>
+        </div>
+        <div class="col-sm-4">
+          <select class="form-control">
+            <option> - Select - </option>
+            <option *ngFor="let acc of carrier.accounts">{{acc.account}}</option>
+          </select>
+        </div>
+        <div class="col-sm-2"><input class="form-control" type="text" placeholder="Inv. Date" [(ngModel)]="invoice_date"></div>
+        <div class="col-sm-2"><input class="form-control" type="text"></div>
+        <div class="col-sm-2"><input class="form-control" type="text"></div>
+        <div class="col-sm-2"><input class="form-control" type="text"></div>
+        <div class="col-sm-2"><input class="form-control" type="text"></div>
+        <div class="col-sm-2"><button class="btn btn-primary">Update</button></div>
+      </div>
+      <table class="table table-sm">
+        <thead>
+          <tr>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <div class="col-sm-8" *ngFor="let tp of task.process">
-    <p>{{tp.task_detail}} <button class="btn btn-sm btn-primary pull-right">Run</button></p>
+  <div class="col-sm-4">
+    <h3>Open Invoices</h3>
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Inv. No.</th>
+          <th>Inv. Date</th>
+          <th>Value (&pound;)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let o_inv of open_invoices">
+          <td></td>
+          <td></td>
+          <td class="text-right">0.00</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>Closed Invoices</h3>
+    <table class="table table-sm table-striped">
+      <thead>
+        <tr>
+          <th>Inv. No.</th>
+          <th>Inv. Date</th>
+          <th>Value (&pound;)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c_inv of closed_invoices">
+          <td></td>
+          <td></td>
+          <td class="text-right">0.00</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 

@@ -1,9 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-html{font-size: 0.9em;}
 @import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
+html{font-size: 0.9em;}
 .header{margin:0;background: #1535c7;width:100%;text-align: center;padding: 20px 30px;color:#fff;}
 .link{cursor:pointer;}
 .pull-right{float: right;}
 .btn.btn-default{border: 1px solid #cbcbcb;background-color:#ccc;}
-.formItem{float:left;}
-.formItem input{width:60px;margin-right: 5px;}
+pre{
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

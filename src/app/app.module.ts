@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule }    from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { FilterPipe} from './filter.pipe';
+import { FilterPipe } from './filter.pipe';
+import { MatNativeDateModule } from '@angular/material'
+import { MatDatepickerModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -33,9 +36,15 @@ import { RuntaskComponent } from './runtask/runtask.component';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
     
   ],
   exports: [
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

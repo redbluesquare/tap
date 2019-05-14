@@ -16,14 +16,16 @@
     <div *ngIf="inv_status==0">
       <h3>Select a carrier</h3>
       <div *ngFor="let carrier of carriers">
-        <p (click)="selectCarrier(carrier)">{{carrier.title}}</p>
+        <pre class="link" (click)="selectCarrier(carrier)">{{carrier.title}}</pre>
       </div>
     </div>
-    <div *ngIf="inv_status==1">
+    <div *ngIf="inv_status>=1">
+      <pre class="bg-warning" *ngIf=" comment != '' ">{{comment}}</pre>
       <button class="btn btn-default pull-right">Approve Invoice</button>
       <button class="btn btn-default pull-right">Get Approval Text</button>
       <button class="btn btn-default" (click)="resetCarriers()">Close</button>
-      <div class="row" style="margin-top:5px;">
+      <button class="btn btn-default" (click)="startInvoice(0)" *ngIf="inv_status<3">New Invoice</button>
+      <div class="row clearfix" style="margin-top:5px;">
         <div class="col-sm-6">
           <h3>{{carrier.title}}</h3>
         </div>
@@ -31,26 +33,45 @@
           <label>Account: </label>
         </div>
         <div class="col-sm-4">
-          <select class="form-control">
-            <option> - Select - </option>
-            <option *ngFor="let acc of carrier.accounts">{{acc.account}}</option>
+          <select class="form-control" [(ngModel)]="account_number" (change)="checkComment()">
+            <option value=""> - Select - </option>
+            <option *ngFor="let acc of carrier.accounts" value="acc.account">{{acc.account}}</option>
           </select>
         </div>
-        <div class="col-sm-2"><input class="form-control" type="text" placeholder="Inv. Date" [(ngModel)]="invoice_date"></div>
-        <div class="col-sm-2"><input class="form-control" type="text"></div>
-        <div class="col-sm-2"><input class="form-control" type="text"></div>
-        <div class="col-sm-2"><input class="form-control" type="text"></div>
-        <div class="col-sm-2"><input class="form-control" type="text"></div>
-        <div class="col-sm-2"><button class="btn btn-primary">Update</button></div>
+        <div class="row clearfix" *ngIf="editInvLine==1">
+          <div class="col-sm-2"><input class="form-control" type="text" placeholder="Inv. Date" [(ngModel)]="invoice_date"></div>
+          <div class="col-sm-2"><input class="form-control" type="text"></div>
+          <div class="col-sm-2"><input class="form-control" type="text"></div>
+          <div class="col-sm-2"><input class="form-control" type="text"></div>
+          <div class="col-sm-2"><input class="form-control" type="text"></div>
+          <div class="col-sm-2"><button class="btn btn-primary">Update</button></div>
+        </div>
       </div>
-      <table class="table table-sm">
-        <thead>
-          <tr>
-
-          </tr>
-        </thead>
+      <div class="row" *ngIf="inv_status>=2">
+        <div class="col-sm-5">
+          <input class="form-control" placeholder="Invoice Date (yyy-mm-dd)" [(ngModel)]="invoice_date">
+        </div>
+        <div class="col-sm-4">
+          <input class="form-control" type="text" placeholder="Inv. Number" [(ngModel)]="invoice_number" (change)="checkComment()">
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-primary" (click)="startInvoice(1)">Add Inv. Line</button>
+        </div>
+      </div>
+      <div class="row" *ngIf="inv_status>=3">
+        <div class="col-sm-5">
+            <input class="form-control" type="text" placeholder="Inv. Line Price" [(ngModel)]="invoice_line_price">
+        </div>
+        <div class="offset-sm-4 col-sm-3">
+            <button class="btn btn-primary" (click)="startInvoice(1)">Add Inv. Line</button>
+          </div>
+      </div>
+      <table class="table table-sm" *ngIf="inv_status>=3">
         <tbody>
-          <tr></tr>
+          <tr>
+            <td><input type="radio" name="active_inv_line" value="0"></td>
+            <td>Price (&pound;) {{invoice_line_price}}</td>
+          </tr>
         </tbody>
       </table>
     </div>

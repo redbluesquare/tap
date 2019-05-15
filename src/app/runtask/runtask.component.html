@@ -35,7 +35,7 @@
         <div class="col-sm-4">
           <select class="form-control" [(ngModel)]="account_number" (change)="checkComment()">
             <option value=""> - Select - </option>
-            <option *ngFor="let acc of carrier.accounts" value="acc.account">{{acc.account}}</option>
+            <option *ngFor="let acc of carrier.accounts" ng-value="acc.account">{{acc.account}}</option>
           </select>
         </div>
         <div class="row clearfix" *ngIf="editInvLine==1">

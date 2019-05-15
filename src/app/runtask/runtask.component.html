@@ -55,16 +55,23 @@
           <input class="form-control" type="text" placeholder="Inv. Number" [(ngModel)]="invoice_number" (change)="checkComment()">
         </div>
         <div class="col-sm-3">
-          <button class="btn btn-primary" (click)="startInvoice(1)">Add Inv. Line</button>
+          <p> </p>
         </div>
       </div>
-      <div class="row" *ngIf="inv_status>=3">
-        <div class="col-sm-5">
-            <input class="form-control" type="text" placeholder="Inv. Line Price" [(ngModel)]="invoice_line_price">
+      <hr>
+      <div class="row" *ngIf="inv_status>=2">
+        <div class="col-sm-3">
+          <input class="form-control" type="text" placeholder="Collection Date" [(ngModel)]="collection_date">
         </div>
-        <div class="offset-sm-4 col-sm-3">
-            <button class="btn btn-primary" (click)="startInvoice(1)">Add Inv. Line</button>
-          </div>
+        <div class="col-sm-4">
+          <input class="form-control" type="text" placeholder="Line Reference" [(ngModel)]="line_reference">
+        </div>
+        <div class="col-sm-2">
+          <input class="form-control" type="text" placeholder="Price" [(ngModel)]="invoice_line_price">
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-primary" (click)="addInvoiceline()">Add Inv. Line</button>
+        </div>
       </div>
       <table class="table table-sm" *ngIf="inv_status>=3">
         <tbody>

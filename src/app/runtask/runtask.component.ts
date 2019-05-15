@@ -18,8 +18,9 @@ export class RuntaskComponent implements OnInit {
   account_number:string = '';
   carriers:any;
   carrier:any = [];
-  comment:string=''
+  comment:string='';
   data:any;
+  dss_id:number;
   editInvLine:number = 0;
   id:number;
   inv:any;
@@ -28,21 +29,25 @@ export class RuntaskComponent implements OnInit {
   invoice_number:string = '';
   invoices:any;
   inv_status:number = 0;
+  line_reference:string;
   matDatepicker:any;
+  service_code:string;
   tasks:any;
 
-  addInvoice(){
+  addInvoiceline(){
+    this.inv_status=3;
+    //Get all data to create the invoice line
     this.data = {
-      'invoice_number':this.invoice_number, 
+      'account_number':this.account_number,
+      'service_code':this.service_code,
+      'invoice_number':this.invoice_number,
       'invoice_date':this.invoice_date,
-      'account_number':this.account_number
+      'line_reference':this.line_reference,
+      'invoice_line_price':this.invoice_line_price,
+      'dss_id':this.dss_id
     }
     this.apiData.addInvoice(this.data)
-      .subscribe(invoices => {
-        if(invoices == true){
-          this.inv_status=3;
-        }
-      })
+      .subscribe(invoices => this.invoices = invoices)
   }
   
   checkComment(){
@@ -87,7 +92,7 @@ export class RuntaskComponent implements OnInit {
         
       }
       else{
-        this.addInvoice()
+        this.addInvoiceline()
         
       }
     }

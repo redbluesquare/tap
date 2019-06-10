@@ -31,7 +31,7 @@ export class RuntaskComponent implements OnInit {
   inv_status:number = 0;
   line_reference:string;
   matDatepicker:any;
-  service_code:string;
+  service_code:string = 'FLT';
   tasks:any;
 
   addInvoiceline(){
@@ -43,8 +43,7 @@ export class RuntaskComponent implements OnInit {
       'invoice_number':this.invoice_number,
       'invoice_date':this.invoice_date,
       'line_reference':this.line_reference,
-      'invoice_line_price':this.invoice_line_price,
-      'dss_id':this.dss_id
+      'invoice_line_price':this.invoice_line_price
     }
     this.apiData.addInvoice(this.data)
       .subscribe(invoices => this.invoices = invoices)

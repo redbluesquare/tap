@@ -8,7 +8,7 @@ import { DataApiService } from '../data-api.service';
 })
 export class TasksComponent implements OnInit {
 
-  auto_step:number;
+  auto_step:number = 0;
   cat_id:number;
   categories:any;
   cats:any;
@@ -26,12 +26,12 @@ export class TasksComponent implements OnInit {
   title:string;
   tsks:any;
   taskpds:any;
-  var1_active:number;
-  var1_description:string;
-  var2_active:number;
-  var2_description:string;
-  var3_active:number;
-  var3_description:string;
+  var1_active:number = 0;
+  var1_description:string = '';
+  var2_active:number = 0;
+  var2_description:string = '';
+  var3_active:number = 0;
+  var3_description:string = '';
 
   constructor(private apiData:DataApiService) { }
 
@@ -58,15 +58,7 @@ export class TasksComponent implements OnInit {
       "title":this.title,
       "description":this.description,
       "parent_id":this.parent_id,
-      "cat_id":this.cat_id,
-      "var1_active":this.var1_active,
-      "var1_description":this.var1_description,
-      "var2_active":this.var2_active,
-      "var2_description":this.var2_description,
-      "var3_active":this.var3_active,
-      "var3_description":this.var3_description,
-      "process_link":this.process_link,
-      "auto_step":this.auto_step
+      "cat_id":this.cat_id
     }
     this.apiData.addTask(this.data).subscribe(task => this.clearForm())
   }
@@ -86,7 +78,15 @@ export class TasksComponent implements OnInit {
       "ddc_tpd_id":this.ddc_tpd_id,
       "task_step":this.task_step,
       "task_detail":this.task_detail,
-      "task_id":this.task_id
+      "task_id":this.task_id,
+      "var1_active":this.var1_active,
+      "var1_description":this.var1_description,
+      "var2_active":this.var2_active,
+      "var2_description":this.var2_description,
+      "var3_active":this.var3_active,
+      "var3_description":this.var3_description,
+      "process_link":this.process_link,
+      "auto_step":this.auto_step
     }
     this.apiData.addTaskProcessStep(this.data).subscribe(task => this.clearTPDForm())
   }

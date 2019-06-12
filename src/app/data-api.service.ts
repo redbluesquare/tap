@@ -118,6 +118,25 @@ export class DataApiService {
     return this.http.get<any[]>(this.tasksUrl+this.url)
   }
 
+  startProcess(tp, v1, v2, v3): Observable<any> {
+    if(v1!=undefined){
+      v1 = '/'+v1
+    }else{
+      v1 = ''
+    }
+    if(v2!=undefined){
+      v2 = '/'+v2
+    }else{
+      v2 = ''
+    }
+    if(v3!=undefined){
+      v3 = '/'+v3
+    }else{
+      v3 = ''
+    }
+    return this.http.get<any>(tp.process_link+v1+v2+v3)
+  }
+
   updateTask(data): Observable<any> {
     return this.http.post<any>(this.tasksUrl, data)
   }

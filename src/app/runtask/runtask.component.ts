@@ -31,8 +31,13 @@ export class RuntaskComponent implements OnInit {
   inv_status:number = 0;
   line_reference:string;
   matDatepicker:any;
+  messageShow = 0;
+  messageText:string;
   service_code:string = 'FLT';
   tasks:any;
+  var1:string;
+  var2:string;
+  var3:string;
 
   addInvoiceline(){
     this.inv_status=3;
@@ -95,6 +100,18 @@ export class RuntaskComponent implements OnInit {
         
       }
     }
+  }
+
+  startProcess(tp){
+    //disable button
+    this.messageShow = 1;
+    this.messageText = tp.task_detail+"(STARTED)"
+    this.apiData.startProcess(tp,this.var1, this.var2, this.var3)
+    .subscribe(ut => {
+        //update message as process complete
+        console.log(ut);
+        this.messageText = tp.task_detail+"(COMPLETE)"
+      });
   }
 
   resetCarriers(){

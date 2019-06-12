@@ -8,22 +8,30 @@ import { DataApiService } from '../data-api.service';
 })
 export class TasksComponent implements OnInit {
 
+  auto_step:number;
   cat_id:number;
   categories:any;
   cats:any;
   data:any;
+  ddc_tpd_id:number;
   description:string;
   identifier:string;
   parent_id:number;
+  process_link:string
   searchText:string;
   tasks:any;
   task_detail:string;
   task_id:number;
   task_step:number=0;
   title:string;
-  ddc_tpd_id:number;
   tsks:any;
   taskpds:any;
+  var1_active:number;
+  var1_description:string;
+  var2_active:number;
+  var2_description:string;
+  var3_active:number;
+  var3_description:string;
 
   constructor(private apiData:DataApiService) { }
 
@@ -50,7 +58,15 @@ export class TasksComponent implements OnInit {
       "title":this.title,
       "description":this.description,
       "parent_id":this.parent_id,
-      "cat_id":this.cat_id
+      "cat_id":this.cat_id,
+      "var1_active":this.var1_active,
+      "var1_description":this.var1_description,
+      "var2_active":this.var2_active,
+      "var2_description":this.var2_description,
+      "var3_active":this.var3_active,
+      "var3_description":this.var3_description,
+      "process_link":this.process_link,
+      "auto_step":this.auto_step
     }
     this.apiData.addTask(this.data).subscribe(task => this.clearForm())
   }
@@ -84,12 +100,21 @@ export class TasksComponent implements OnInit {
     this.cat_id = null;
     this.getTasks(0);
     this.getTsks(0);
+
   }
 
   clearTPDForm(){
     this.ddc_tpd_id = null;
     this.task_step = null;
     this.task_detail = null;
+    this.auto_step = null;
+    this.process_link = null;
+    this.var1_active = null;
+    this.var1_description = null;
+    this.var2_active = null;
+    this.var2_description = null;
+    this.var3_active = null;
+    this.var3_description = null;
     this.getTasks(this.task_id);
   }
 
@@ -116,6 +141,14 @@ export class TasksComponent implements OnInit {
     this.ddc_tpd_id = tpd.ddc_tpd_id;
     this.task_step = tpd.task_step;
     this.task_detail = tpd.task_detail;
+    this.auto_step = tpd.auto_step;
+    this.process_link = tpd.process_link;
+    this.var1_active = tpd.var1_active;
+    this.var1_description = tpd.var1_description;
+    this.var2_active = tpd.var2_active;
+    this.var2_description = tpd.var2_description;
+    this.var3_active = tpd.var3_active;
+    this.var3_description = tpd.var3_description;
   }
   
   //Get the category(s)

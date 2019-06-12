@@ -36,6 +36,36 @@
         <div class="input-group input-group-sm mb-3">
           <textarea class="form-control" rows="5" placeholder="Process Step Detail" [(ngModel)]="task_detail"></textarea>
         </div>
+        <div class="input-group input-group-sm mb-3">
+          <input type="text" class="form-control" placeholder="link" [(ngModel)]="process_link">
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <div class="col-sm-3">
+            <input type="text" class="form-control" placeholder="Variable 1" [(ngModel)]="var1_active">
+          </div>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="Variable 1" [(ngModel)]="var1_description">
+          </div>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="col-sm-3">
+              <input type="text" class="form-control" placeholder="Variable 1" [(ngModel)]="var2_active">
+            </div>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Variable 1" [(ngModel)]="var2_description">
+            </div>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <div class="col-sm-3">
+              <input type="text" class="form-control" placeholder="Variable 1" [(ngModel)]="var2_active">
+            </div>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" placeholder="Variable 1" [(ngModel)]="var2_description">
+            </div>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+          <input type="text" class="form-control" placeholder="Auto / Manual" [(ngModel)]="auto_step">
+        </div>
         <button *ngIf="ddc_tpd_id != null" class="btn btn-danger link" (click)="deleteTaskPD()">Delete</button>
         <button class="btn btn-success link pull-right" (click)="saveTPD()">Save Process Step</button>
       </div>

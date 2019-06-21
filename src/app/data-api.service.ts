@@ -74,6 +74,13 @@ export class DataApiService {
     return this.http.get<any[]>(this.categoriesUrl)
   }
 
+  getInvoices(state, invoice = ''): Observable<any[]> {
+    if(invoice!=''){
+      this.categoriesUrl = this.invoicesUrl+state.toString()+'/'+invoice
+    }
+    return this.http.get<any[]>(this.invoicesUrl+state.toString()+'/')
+  }
+
   getLocations(data): Observable<any> {
     if(data != undefined){
       data = 'pick_type/'+data.pick_type;

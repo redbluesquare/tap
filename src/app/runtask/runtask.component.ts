@@ -33,6 +33,7 @@ export class RuntaskComponent implements OnInit {
   matDatepicker:any;
   messageShow = 0;
   messageText:string;
+  open_invoices:any;
   service_code:string = 'FLT';
   tasks:any;
   var1:string;
@@ -61,6 +62,16 @@ export class RuntaskComponent implements OnInit {
     else if(this.invoice_number != ''){
       this.comment = '';
     }
+  }
+
+  //Get the open task(s)
+  getInvoices(state, invoice = ''){
+    this.apiData.getInvoices(state, invoice)
+    .subscribe(invoices => {
+        if(state == 0){
+          this.open_invoices = invoices;
+        }
+      });
   }
 
   //Get the open task(s)
@@ -128,6 +139,7 @@ export class RuntaskComponent implements OnInit {
     this.adapter.setLocale('gb');
     //Get the task
     this.getTaskplans(0,+this.route.snapshot.paramMap.get('id'));
+    this.getInvoices(0)
   }
 
 }

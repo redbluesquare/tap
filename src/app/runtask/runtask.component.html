@@ -60,9 +60,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let c_inv of closed_invoices">
-          <td></td>
-          <td></td>
-          <td class="text-right">0.00</td>
+            <td>c_inv.invoice_number</td>
+            <td>c_inv.invoice_date</td>
+            <td class="text-right">c_inv.invoice_value</td>
         </tr>
       </tbody>
     </table>

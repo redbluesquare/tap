@@ -18,6 +18,7 @@ export class RuntaskComponent implements OnInit {
   account_number:string = '';
   carriers:any;
   carrier:any = [];
+  closed_invoices:any;
   comment:string='';
   data:any;
   dss_id:number;
@@ -70,6 +71,9 @@ export class RuntaskComponent implements OnInit {
     .subscribe(invoices => {
         if(state == 0){
           this.open_invoices = invoices;
+        }
+        if(state == 1){
+          this.closed_invoices = invoices;
         }
       });
   }
@@ -140,6 +144,7 @@ export class RuntaskComponent implements OnInit {
     //Get the task
     this.getTaskplans(0,+this.route.snapshot.paramMap.get('id'));
     this.getInvoices(0)
+    this.getInvoices(1)
   }
 
 }

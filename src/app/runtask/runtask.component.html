@@ -43,9 +43,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let o_inv of open_invoices">
-          <td>o_inv.invoice_number</td>
-          <td>o_inv.invoice_date</td>
-          <td class="text-right">o_inv.invoice_value</td>
+          <td>{{o_inv.invoice_number}}</td>
+          <td>{{o_inv.invoice_date}}</td>
+          <td class="text-right">{{o_inv.invoice_value}}</td>
         </tr>
       </tbody>
     </table>
@@ -60,9 +60,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let c_inv of closed_invoices">
-            <td>c_inv.invoice_number</td>
-            <td>c_inv.invoice_date</td>
-            <td class="text-right">c_inv.invoice_value</td>
+            <td>{{c_inv.invoice_number}}</td>
+            <td>{{c_inv.invoice_date}}</td>
+            <td class="text-right">{{c_inv.invoice_value}}</td>
         </tr>
       </tbody>
     </table>

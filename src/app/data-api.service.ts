@@ -78,7 +78,7 @@ export class DataApiService {
     if(invoice!=''){
       this.categoriesUrl = this.invoicesUrl+state.toString()+'/'+invoice
     }
-    return this.http.get<any[]>(this.invoicesUrl+state.toString()+'/')
+    return this.http.get<any[]>(this.invoicesUrl+state.toString())
   }
 
   getLocations(data): Observable<any> {

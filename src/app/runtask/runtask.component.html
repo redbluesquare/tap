@@ -29,30 +29,31 @@
 </div>
 <div class="row" *ngIf="id==23">
   <div class="col-sm-9">
-    <table class="table" *ngIf="inv_status==1">
+    <table class="table" *ngIf="inv_status>=1">
       <thead>
         <tr>
-          <td colspan="2">
+          <td colspan="1">
               <button class="btn btn-default" (click)="clearInvoice()">Close</button>
           </td>
-          <td colspan="3">
+          <td colspan="2">
             <button class="btn btn-default">Validate</button>
           </td>
-          <td colspan="3">
+          <td colspan="2">
             <button class="btn btn-warning">Raise Dispute</button>
           </td>
-          <td colspan="3">
+          <td colspan="2">
             <button class="btn btn-primary">Get Approval Text</button>
             <button class="btn btn-success pull-right" (click)="saveInvoice()">Save</button>
           </td>
         </tr>
         <tr>
           <td>Invoice #</td>
-          <td>Vendor</td>
-          <td>Account #</td>
+          <td>Vendor <br>
+            Account #
+          </td>
           <td>Barcode</td>
-          <td>Invoice Date</td>
-          <td>Invoice Value</td>
+          <td>Invoice Date<br>
+            Invoice Value</td>
           <td>Debit Info</td>
           <td>Cr Info</td>
           <td width="30%">Comment</td>
@@ -61,11 +62,11 @@
       <tbody>
         <tr>
           <td>{{invoice_number}}</td>
-          <td>{{vendor_name}}</td>
-          <td>{{account_number}}</td>
+          <td>{{vendor_name}}<br>
+            {{account_number}}</td>
           <td>{{barcode}}</td>
-          <td>{{invoice_date}}</td>
-          <td>{{invoice_value}}</td>
+          <td>{{invoice_date}}<br>
+            {{invoice_value}}</td>
           <td>
             <input class="form-control" [(ngModel)]="debit_number" placeholder="Dr #"/>
             <input class="form-control" [(ngModel)]="debit_value" placeholder="Dr Value"/></td>
@@ -76,22 +77,27 @@
         </tr>
       </tbody>
     </table>
-    <div *ngIf="inv_status==2">
-      <div class="table col-sm-6">
-          <p>{{inv.pick_up_date}}<br>
-          {{inv.consignment_number}}<br>
-          {{inv.customer_reference}}<br>
-          {{inv.delivery_post_code}}<br>
-          {{inv.no_of_pcls+" | "+inv.total_weight+" | "+inv.calc_rate}}<br>
-          <td>{{inv.total_pieces+" | "+inv.billed_weight+" | "+inv.invoice_value}}<br>
-          <input [(ngModel)]="cost_center" class="form-control" />
-          <input [(ngModel)]="calc_diff" class="form-control" />
-          <input [(ngModel)]="status" class="form-control" />
-          <input [(ngModel)]="comment" class="form-control" />
+    <hr>
+    <div class="row" *ngIf="inv_status==2">
+      <div class="col-sm-4">
+        <p>{{pick_up_date}}<br>
+        {{consignment_number}}<br>
+        {{customer_reference}}<br>
+        {{delivery_post_code}}<br>
+        {{no_of_pcls+" | "+total_weight+" | "+calc_rate}}<br>
+        {{total_pieces+" | "+billed_weight+" | "+inv_line_value}}</p>
+        <p><input [(ngModel)]="cost_center" class="form-control" placeholder="Cost Center"/><br>
+        <input [(ngModel)]="calc_diff" class="form-control" placeholder="Calc Diff."/><br>
+        <input [(ngModel)]="status" class="form-control" placeholder="Status"/><br>
+        <input [(ngModel)]="inv_comment" class="form-control" placeholder="Comment"/></p>
       </div>
-      <table class="table col-sm-6">
+      <div class="col-sm-2">
+          <button class="btn btn-default col-sm-12" (click)="hideInvLine()">Hide</button><br>
+          <button class="btn btn-success col-sm-12">Save Inv Line</button>
+      </div>
+      <div class="col-sm-6">
 
-      </table>
+      </div>
     </div>
     <table class="table" *ngIf="inv_status==1">
       <thead>
@@ -116,10 +122,10 @@
           <td>{{inv.cost_center}}</td>
           <td>{{inv.delivery_post_code}}</td>
           <td>{{inv.no_of_pcls+" | "+inv.total_weight+" | "+inv.calc_rate}}</td>
-          <td>{{inv.total_pieces+" | "+inv.billed_weight+" | "+inv.invoice_value}}</td>
+          <td>{{inv.total_pieces+" | "+inv.billed_weight+" | "+inv.inv_line_value}}</td>
           <td>{{inv.calc_diff}}</td>
           <td>{{inv.status}}</td>
-          <td>{{inv.comment}}</td>
+          <td>{{inv.inv_comment}}</td>
         </tr>
       </tbody>
     </table>

@@ -105,18 +105,12 @@ export class RuntaskComponent implements OnInit {
   editInvline(inv){
     this.pick_up_date = inv.pick_up_date
     this.consignment_number =inv.consignment_number
-    this.customer_reference =inv.customer_reference
     this.cost_center = inv.cost_center
-    this.delivery_post_code = inv.delivery_post_code
-    this.no_of_pcls = inv.no_of_pcls
-    this.total_weight = inv.total_weight
     this.calc_rate = inv.calc_rate
-    this.total_pieces = inv.total_pieces
-    this.billed_weight = inv.billed_weight
-    this.inv_line_value = inv.inv_line_value
     this.calc_diff = inv.calc_diff
     this.status = inv.status
-    this.inv_comment = inv.comment
+    this.inv_comment = inv.inv_comment
+    this.inv_status = 2;
   }
 
   //Get the open task(s)
@@ -146,6 +140,16 @@ export class RuntaskComponent implements OnInit {
       });
   }
 
+  hideInvLine(){
+    this.pick_up_date = '';
+    this.consignment_number = '';
+    this.cost_center = '';
+    this.calc_rate = 0;
+    this.calc_diff = 0;
+    this.status = 0;
+    this.inv_comment = '';
+    this.inv_status = 1;
+  }
 
   selectCarrier(carrier){
     this.carrier = carrier;

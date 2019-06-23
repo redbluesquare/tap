@@ -17,12 +17,19 @@ export class RuntaskComponent implements OnInit {
 
   account_number:string = '';
   barcode:string;
+  billed_weight:number;
+  calc_rate:number;
+  calc_diff:number;
   carriers:any;
   carrier:any = [];
   closed_invoices:any;
+  consignment_number:string;
+  cost_center:string;
+  customer_reference:string;
   comment:string='';
   credit_number:string;
   credit_value:number;
+  delivery_post_code:string;
   data:any;
   debit_number:string;
   debit_value:number;
@@ -37,12 +44,19 @@ export class RuntaskComponent implements OnInit {
   invoice:any;
   invoices:any;
   inv_status:number = 0;
+  inv_comment:string;
+  inv_line_value:number;
   line_reference:string;
   matDatepicker:any;
   messageShow = 0;
   messageText:string;
+  no_of_pcls:number;
   open_invoices:any;
+  pick_up_date:string;
   service_code:string = 'FLT';
+  status:number;
+  total_weight:number;
+  total_pieces:number;
   tasks:any;
   var1:string;
   var2:string;
@@ -86,6 +100,23 @@ export class RuntaskComponent implements OnInit {
     this.credit_value = 0;
     this.debit_value = 0;
     this.inv_status = 0;
+  }
+
+  editInvline(inv){
+    this.pick_up_date = inv.pick_up_date
+    this.consignment_number =inv.consignment_number
+    this.customer_reference =inv.customer_reference
+    this.cost_center = inv.cost_center
+    this.delivery_post_code = inv.delivery_post_code
+    this.no_of_pcls = inv.no_of_pcls
+    this.total_weight = inv.total_weight
+    this.calc_rate = inv.calc_rate
+    this.total_pieces = inv.total_pieces
+    this.billed_weight = inv.billed_weight
+    this.inv_line_value = inv.inv_line_value
+    this.calc_diff = inv.calc_diff
+    this.status = inv.status
+    this.inv_comment = inv.comment
   }
 
   //Get the open task(s)

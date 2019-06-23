@@ -76,6 +76,23 @@
         </tr>
       </tbody>
     </table>
+    <div *ngIf="inv_status==2">
+      <div class="table col-sm-6">
+          <p>{{inv.pick_up_date}}<br>
+          {{inv.consignment_number}}<br>
+          {{inv.customer_reference}}<br>
+          {{inv.delivery_post_code}}<br>
+          {{inv.no_of_pcls+" | "+inv.total_weight+" | "+inv.calc_rate}}<br>
+          <td>{{inv.total_pieces+" | "+inv.billed_weight+" | "+inv.invoice_value}}<br>
+          <input [(ngModel)]="cost_center" class="form-control" />
+          <input [(ngModel)]="calc_diff" class="form-control" />
+          <input [(ngModel)]="status" class="form-control" />
+          <input [(ngModel)]="comment" class="form-control" />
+      </div>
+      <table class="table col-sm-6">
+
+      </table>
+    </div>
     <table class="table" *ngIf="inv_status==1">
       <thead>
         <tr>
@@ -92,8 +109,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let inv of invoice">
-          <td>{{inv.pickup_date}}</td>
+        <tr *ngFor="let inv of invoice" (click)="editInvline(inv)">
+          <td>{{inv.pick_up_date}}</td>
           <td>{{inv.consignment_number}}</td>
           <td>{{inv.customer_reference}}</td>
           <td>{{inv.cost_center}}</td>
@@ -101,7 +118,7 @@
           <td>{{inv.no_of_pcls+" | "+inv.total_weight+" | "+inv.calc_rate}}</td>
           <td>{{inv.total_pieces+" | "+inv.billed_weight+" | "+inv.invoice_value}}</td>
           <td>{{inv.calc_diff}}</td>
-          <td>{{inv.Status}}</td>
+          <td>{{inv.status}}</td>
           <td>{{inv.comment}}</td>
         </tr>
       </tbody>

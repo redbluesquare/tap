@@ -28,6 +28,7 @@ export class RuntaskComponent implements OnInit {
   invoice_date:any;
   invoice_line_price:number;
   invoice_number:string = '';
+  invoice_value:number;
   invoices:any;
   inv_status:number = 0;
   line_reference:string;
@@ -93,6 +94,16 @@ export class RuntaskComponent implements OnInit {
     this.inv_status = 1;
   }
 
+  showInvoice(invoice){
+    this.invoice_number = invoice.invoice_number;
+    this.invoice_date = invoice.invoice_date;
+    this.comment = invoice.comments;
+    this.account_number = invoice.account_number;
+    this.carrier = invoice.carrier;
+    this.invoice_value = invoice.invoice_value;
+    this.inv_status = 1;
+  }
+
   startInvoice(a){
     if(a == 0){
       if(this.account_number == ''){
@@ -134,12 +145,7 @@ export class RuntaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.carriers = [
-      {title:'DND',accounts:[{account:'DND_RB'}]},
-      {title:'Davison',accounts:[{account:'DND_RB'}]},
-      {title:'Euro SDB',accounts:[{account:'ROBERTBO'}]},
-      {title:'TNT',accounts:[{account:'0600172191'},{account:'0600172183'}]}
-    ]
+    this.comment = "123"
     this.adapter.setLocale('gb');
     //Get the task
     this.getTaskplans(0,+this.route.snapshot.paramMap.get('id'));

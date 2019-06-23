@@ -28,10 +28,32 @@
     </div>
 </div>
 <div class="row" *ngIf="id==23">
-  <div class="col-sm-8">
-
+  <div class="col-sm-9">
+    <table class="table" *ngIf="inv_status==1">
+      <thead>
+        <tr>
+          <td colspan="5"><button class="btn btn-success pull-right" (click)="saveInvoice()">Save</button></td>
+        </tr>
+        <tr>
+          <td>Invoice #</td>
+          <td>Account #</td>
+          <td>Invoice Date</td>
+          <td>Invoice Value</td>
+          <td>Comment</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{invoice_number}}</td>
+          <td>{{account_number}}</td>
+          <td>{{invoice_date}}</td>
+          <td>{{invoice_value}}</td>
+          <td><textarea [(ngModel)]="comment"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <h3>Open Invoices</h3>
     <table class="table table-sm table-striped">
       <thead>
@@ -42,7 +64,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let o_inv of open_invoices">
+        <tr *ngFor="let o_inv of open_invoices" (click)="showInvoice(o_inv)">
           <td>{{o_inv.invoice_number}}</td>
           <td>{{o_inv.invoice_date}}</td>
           <td class="text-right">{{o_inv.invoice_value}}</td>

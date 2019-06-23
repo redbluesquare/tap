@@ -33,16 +33,16 @@
       <thead>
         <tr>
           <td colspan="2">
-            <button class="btn btn-default pull-right">Validate</button>
+              <button class="btn btn-default" (click)="clearInvoice()">Close</button>
           </td>
           <td colspan="3">
-            <button class="btn btn-default pull-right">Raise Dispute</button>
+            <button class="btn btn-default">Validate</button>
           </td>
           <td colspan="3">
-            <button class="btn btn-default pull-right">Get Approval Text</button>
+            <button class="btn btn-warning">Raise Dispute</button>
           </td>
           <td colspan="3">
-            <button class="btn btn-default" (click)="clearInvoice()">Close</button>
+            <button class="btn btn-primary">Get Approval Text</button>
             <button class="btn btn-success pull-right" (click)="saveInvoice()">Save</button>
           </td>
         </tr>
@@ -68,11 +68,39 @@
           <td>{{barcode}}</td>
           <td>{{invoice_date}}</td>
           <td>{{invoice_value}}</td>
-          <td>{{debit_number}}</td>
-          <td>{{debit_value}}</td>
-          <td>{{credit_number}}</td>
-          <td>{{credit_value}}</td>
-          <td><textarea rows="4" class="form-control" [(ngModel)]="comment"></textarea></td>
+          <td><input class="form-control" [(ngModel)]="debit_number" /></td>
+          <td><input class="form-control" [(ngModel)]="debit_value" /></td>
+          <td><input class="form-control" [(ngModel)]="credit_number" /></td>
+          <td><input class="form-control" [(ngModel)]="credit_value" /></td>
+          <td><textarea rows="3" class="form-control" [(ngModel)]="comment"></textarea></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table" *ngIf="inv_status==1">
+      <thead>
+        <tr>
+          <td>Pickup Date</td>
+          <td>Con #</td>
+          <td>Ref</td>
+          <td>CC</td>
+          <td>Post Code</td>
+          <td>Calc Val</td>
+          <td>Inv Value</td>
+          <td>Calc Diff</td>
+          <td>Comment</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inv of invoice">
+          <td>{{inv.pickup_date}}</td>
+          <td>{{inv.consignment_number}}</td>
+          <td>{{inv.customer_reference}}</td>
+          <td>{{inv.cost_center}}</td>
+          <td>{{inv.delivery_post_code}}</td>
+          <td>{{inv.calc_rate}}</td>
+          <td>{{inv.invoice_value}}</td>
+          <td>{{inv.calc_diff}}</td>
+          <td>{{inv.comment}}</td>
         </tr>
       </tbody>
     </table>

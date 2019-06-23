@@ -122,6 +122,7 @@ export class RuntaskComponent implements OnInit {
   }
 
   showInvoice(invoice){
+    this.getInvoiceDetails(invoice.invoice_number);
     this.invoice_number = invoice.invoice_number;
     this.invoice_date = invoice.invoice_date;
     this.comment = invoice.comments;

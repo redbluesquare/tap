@@ -16,11 +16,16 @@ export class RuntaskComponent implements OnInit {
     private adapter: DateAdapter<any>) { }
 
   account_number:string = '';
+  barcode:string;
   carriers:any;
   carrier:any = [];
   closed_invoices:any;
   comment:string='';
+  credit_number:string;
+  credit_value:number;
   data:any;
+  debit_number:string;
+  debit_value:number;
   dss_id:number;
   editInvLine:number = 0;
   id:number;
@@ -101,6 +106,11 @@ export class RuntaskComponent implements OnInit {
     this.account_number = invoice.account_number;
     this.carrier = invoice.carrier;
     this.invoice_value = invoice.invoice_value;
+    this.barcode = invoice.barcode;
+    this.credit_number = invoice.credit_number;
+    this.debit_number = invoice.debit_number;
+    this.credit_value = invoice.credit_value;
+    this.debit_value = invoice.debit_value;
     this.inv_status = 1;
   }
 

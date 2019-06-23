@@ -32,23 +32,47 @@
     <table class="table" *ngIf="inv_status==1">
       <thead>
         <tr>
-          <td colspan="5"><button class="btn btn-success pull-right" (click)="saveInvoice()">Save</button></td>
+          <td colspan="2">
+            <button class="btn btn-default pull-right">Validate</button>
+          </td>
+          <td colspan="3">
+            <button class="btn btn-default pull-right">Raise Dispute</button>
+          </td>
+          <td colspan="3">
+            <button class="btn btn-default pull-right">Get Approval Text</button>
+          </td>
+          <td colspan="3">
+            <button class="btn btn-default">Close</button>
+            <button class="btn btn-success pull-right" (click)="saveInvoice()">Save</button>
+          </td>
         </tr>
         <tr>
           <td>Invoice #</td>
+          <td>Vendor</td>
           <td>Account #</td>
+          <td>Barcode</td>
           <td>Invoice Date</td>
           <td>Invoice Value</td>
-          <td>Comment</td>
+          <td>Dr Note</td>
+          <td>Dr</td>
+          <td>Cr Note</td>
+          <td>Cr</td>
+          <td width="30%">Comment</td>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>{{invoice_number}}</td>
+          <td>{{vendor_name}}</td>
           <td>{{account_number}}</td>
+          <td>{{barcode}}</td>
           <td>{{invoice_date}}</td>
           <td>{{invoice_value}}</td>
-          <td><textarea [(ngModel)]="comment"></textarea></td>
+          <td>{{debit_number}}</td>
+          <td>{{debit_value}}</td>
+          <td>{{credit_number}}</td>
+          <td>{{credit_value}}</td>
+          <td><textarea rows="4" class="form-control" [(ngModel)]="comment"></textarea></td>
         </tr>
       </tbody>
     </table>

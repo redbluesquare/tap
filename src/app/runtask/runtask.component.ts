@@ -34,6 +34,7 @@ export class RuntaskComponent implements OnInit {
   invoice_line_price:number;
   invoice_number:string = '';
   invoice_value:number;
+  invoice:any;
   invoices:any;
   inv_status:number = 0;
   line_reference:string;
@@ -46,6 +47,7 @@ export class RuntaskComponent implements OnInit {
   var1:string;
   var2:string;
   var3:string;
+  vendor_name:string;
 
   addInvoiceline(){
     this.inv_status=3;
@@ -71,6 +73,21 @@ export class RuntaskComponent implements OnInit {
     }
   }
 
+  clearInvoice(){
+    this.invoice_number = '';
+    this.invoice_date = '';
+    this.comment = '';
+    this.account_number = '';
+    this.vendor_name = '';
+    this.invoice_value = 0;
+    this.barcode = '';
+    this.credit_number = '';
+    this.debit_number = '';
+    this.credit_value = 0;
+    this.debit_value = 0;
+    this.inv_status = 0;
+  }
+
   //Get the open task(s)
   getInvoices(state, invoice = ''){
     this.apiData.getInvoices(state, invoice)
@@ -82,6 +99,11 @@ export class RuntaskComponent implements OnInit {
           this.closed_invoices = invoices;
         }
       });
+  }
+  //Get the open task(s)
+  getInvoiceDetails(invoice_number){
+    this.apiData.getInvoiceDetails(invoice_number)
+    .subscribe(invoice => this.invoice = invoice);
   }
 
   //Get the open task(s)
@@ -104,7 +126,7 @@ export class RuntaskComponent implements OnInit {
     this.invoice_date = invoice.invoice_date;
     this.comment = invoice.comments;
     this.account_number = invoice.account_number;
-    this.carrier = invoice.carrier;
+    this.vendor_name = invoice.vendor_name;
     this.invoice_value = invoice.invoice_value;
     this.barcode = invoice.barcode;
     this.credit_number = invoice.credit_number;

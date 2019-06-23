@@ -17,6 +17,7 @@ export class DataApiService {
   private categoriesUrl = 'http://localhost:5001/categories/';  // URL to categories api
   private locationsUrl = 'http://localhost:5001/locations/';  // URL to web api
   private invoicesUrl = 'http://localhost:5001/invoices/';  // URL to web api
+  private invoiceDetailsUrl = 'http://localhost:5001/invoicedetails/';
   private materialUrl = 'http://localhost:5001/materials/';
   private taskactionsUrl = 'http://localhost:5001/taskactions/';  // URL to task actions api
   private taskplansUrl = 'http://localhost:5001/taskplans/';  // URL to task planner api
@@ -79,6 +80,10 @@ export class DataApiService {
       this.categoriesUrl = this.invoicesUrl+state.toString()+'/'+invoice
     }
     return this.http.get<any[]>(this.invoicesUrl+state.toString())
+  }
+
+  getInvoiceDetails(invoice_number): Observable<any[]> {
+    return this.http.get<any[]>(this.invoiceDetailsUrl+invoice_number)
   }
 
   getLocations(data): Observable<any> {

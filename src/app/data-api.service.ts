@@ -15,6 +15,7 @@ export class DataApiService {
 
   private areasUrl = 'http://localhost:5001/areas/';  // URL to categories api
   private categoriesUrl = 'http://localhost:5001/categories/';  // URL to categories api
+  private deliveriesUrl = 'http://localhost:5001/deliveries/';
   private locationsUrl = 'http://localhost:5001/locations/';  // URL to web api
   private invoicesUrl = 'http://localhost:5001/invoices/';  // URL to web api
   private invoiceDetailsUrl = 'http://localhost:5001/invoicedetails/';
@@ -96,6 +97,10 @@ export class DataApiService {
   getMatMoves(mat=''): Observable<any[]> {
 
     return this.http.get<any[]>(this.materialUrl+mat)
+  }
+
+  getParcels(dss_id): Observable<any[]> {
+    return this.http.get<any[]>(this.deliveriesUrl+dss_id);
   }
 
   getTaskplans(status = 0, id = 0): Observable<any[]> {

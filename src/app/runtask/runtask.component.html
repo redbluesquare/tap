@@ -96,7 +96,28 @@
           <button class="btn btn-success col-sm-12">Save Inv Line</button>
       </div>
       <div class="col-sm-6">
-
+        <table class="table">
+          <thead>
+            <tr>
+              <td>PGI Date</td>
+              <td>Ship to Party</td>
+              <td>Delivery #</td>
+              <td>Route</td>
+              <td>Parcel #</td>
+              <td>Weight</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let del of deliveries">
+              <td>{{del.ship_close_date}}</td>
+              <td>{{del.ship_to_party}}</td>
+              <td>{{del.delivery}}</td>
+              <td>{{del.route_code}}</td>
+              <td>{{del.parcel_no}}</td>
+              <td>{{del.parcel_weight}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
     <table class="table" *ngIf="inv_status==1">

@@ -29,6 +29,7 @@ export class RuntaskComponent implements OnInit {
   comment:string='';
   credit_number:string;
   credit_value:number;
+  deliveries:any;
   delivery_post_code:string;
   data:any;
   debit_number:string;
@@ -103,13 +104,22 @@ export class RuntaskComponent implements OnInit {
   }
 
   editInvline(inv){
-    this.pick_up_date = inv.pick_up_date
-    this.consignment_number =inv.consignment_number
-    this.cost_center = inv.cost_center
-    this.calc_rate = inv.calc_rate
-    this.calc_diff = inv.calc_diff
-    this.status = inv.status
-    this.inv_comment = inv.inv_comment
+    this.pick_up_date = inv.pick_up_date;
+    this.consignment_number =inv.consignment_number;
+    this.customer_reference =inv.customer_reference;
+    this.cost_center = inv.cost_center;
+    this.delivery_post_code = inv.delivery_post_code;
+    this.no_of_pcls = inv.no_of_pcls;
+    this.total_weight = inv.total_weight;
+    this.calc_rate = inv.calc_rate;
+    this.total_pieces = inv.total_pieces;
+    this.billed_weight = inv.billed_weight;
+    this.inv_line_value = inv.inv_line_value;
+    this.calc_diff = inv.calc_diff;
+    this.status = inv.status;
+    this.inv_comment = inv.inv_comment;
+    this.apiData.getParcels(inv.dss_id)
+    .subscribe(deliveries => this.deliveries = deliveries);
     this.inv_status = 2;
   }
 
@@ -143,8 +153,15 @@ export class RuntaskComponent implements OnInit {
   hideInvLine(){
     this.pick_up_date = '';
     this.consignment_number = '';
+    this.customer_reference = '';
     this.cost_center = '';
+    this.delivery_post_code = '';
+    this.no_of_pcls = 0;
+    this.total_weight = 0;
     this.calc_rate = 0;
+    this.total_pieces = 0;
+    this.billed_weight = 0;
+    this.inv_line_value = 0;
     this.calc_diff = 0;
     this.status = 0;
     this.inv_comment = '';

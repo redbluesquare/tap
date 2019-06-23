@@ -53,10 +53,8 @@
           <td>Barcode</td>
           <td>Invoice Date</td>
           <td>Invoice Value</td>
-          <td>Dr Note</td>
-          <td>Dr</td>
-          <td>Cr Note</td>
-          <td>Cr</td>
+          <td>Debit Info</td>
+          <td>Cr Info</td>
           <td width="30%">Comment</td>
         </tr>
       </thead>
@@ -68,10 +66,12 @@
           <td>{{barcode}}</td>
           <td>{{invoice_date}}</td>
           <td>{{invoice_value}}</td>
-          <td><input class="form-control" [(ngModel)]="debit_number" /></td>
-          <td><input class="form-control" [(ngModel)]="debit_value" /></td>
-          <td><input class="form-control" [(ngModel)]="credit_number" /></td>
-          <td><input class="form-control" [(ngModel)]="credit_value" /></td>
+          <td>
+            <input class="form-control" [(ngModel)]="debit_number" placeholder="Dr #"/>
+            <input class="form-control" [(ngModel)]="debit_value" placeholder="Dr Value"/></td>
+          <td>
+            <input class="form-control" [(ngModel)]="credit_number" placeholder="Cr #" />
+            <input class="form-control" [(ngModel)]="credit_value" placeholder="Cr Value" /></td>
           <td><textarea rows="3" class="form-control" [(ngModel)]="comment"></textarea></td>
         </tr>
       </tbody>
@@ -84,9 +84,10 @@
           <td>Ref</td>
           <td>CC</td>
           <td>Post Code</td>
-          <td>Calc Val</td>
-          <td>Inv Value</td>
+          <td>Calc Pcs / Wgt / Val</td>
+          <td>Inv Pcs / Wgt / Val</td>
           <td>Calc Diff</td>
+          <td>Status</td>
           <td>Comment</td>
         </tr>
       </thead>
@@ -97,9 +98,10 @@
           <td>{{inv.customer_reference}}</td>
           <td>{{inv.cost_center}}</td>
           <td>{{inv.delivery_post_code}}</td>
-          <td>{{inv.calc_rate}}</td>
-          <td>{{inv.invoice_value}}</td>
+          <td>{{inv.no_of_pcls+" | "+inv.total_weight+" | "+inv.calc_rate}}</td>
+          <td>{{inv.total_pieces+" | "+inv.billed_weight+" | "+inv.invoice_value}}</td>
           <td>{{inv.calc_diff}}</td>
+          <td>{{inv.Status}}</td>
           <td>{{inv.comment}}</td>
         </tr>
       </tbody>

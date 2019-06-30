@@ -80,12 +80,12 @@
     <hr>
     <div class="row" *ngIf="inv_status==2">
       <div class="col-sm-4">
-        <p>{{pick_up_date}}<br>
-        {{consignment_number}}<br>
-        {{customer_reference}}<br>
-        {{delivery_post_code}}<br>
-        {{no_of_pcls+" | "+total_weight+" | "+calc_rate}}<br>
-        {{total_pieces+" | "+billed_weight+" | "+inv_line_value}}</p>
+        <p>Pick up Date: {{pick_up_date}}<br>
+        Con #: {{consignment_number}}<br>
+        Customer Ref:{{customer_reference}}<br>
+        Del Post Code: {{delivery_post_code}}<br>
+        WMS Pcs / Wgt / Rate: {{no_of_pcls+" | "+total_weight+" | "+calc_rate}}<br>
+        Inv Pcs / Wgt / Rate: {{total_pieces+" | "+billed_weight+" | "+inv_line_value}}</p>
         <p><input [(ngModel)]="cost_center" class="form-control" placeholder="Cost Center"/><br>
         <input [(ngModel)]="calc_diff" class="form-control" placeholder="Calc Diff."/><br>
         <input [(ngModel)]="status" class="form-control" placeholder="Status"/><br>

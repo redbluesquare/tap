@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { ViewChild, ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
 import { DataApiService } from '../data-api.service';
+import { isNumber } from 'util';
 
 @Component({
   selector: 'app-task-reports',
@@ -22,20 +23,24 @@ export class TaskReportsComponent implements OnInit {
   categories:any;
   cat_id:number;
   chart:any;
+  current_date:Date;
+  current_month:number = 0;
+  current_month_name:string;
+  current_year:number = 0;
   data:Array<any> = [];
   description:string;
   end_date:string;
+  from_date:string;
   labels:Array<any> = [];
   location:string = '';
   locations:any;
   material:string = '';
   material_moves:any;
   max_data:Array<any> = [];
+  monthNames:any = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
   my_date:any;
   min_data:Array<any> = [];
   parent_id:number;
-  record_month:any;
-  record_year:any;
   searchText:string;
   show_process:number=0;
   start_date:string;
@@ -43,6 +48,7 @@ export class TaskReportsComponent implements OnInit {
   taskplans:any;
   taskpds:any;
   title:string;
+  to_date:string;
   tsk:any;
   tskplans:any[];
   usertasks:any;
@@ -67,8 +73,8 @@ export class TaskReportsComponent implements OnInit {
   }
 
   //Get the closed task(s)
-  getTskplans(id){
-    this.apiData.getTaskplans(id)
+  getTskplans(state, id, year = 0, month = 0){
+    this.apiData.getTaskplans(state, id, year, month)
     .subscribe(tp => {
       this.tskplans = tp;
       this.labels = [];
@@ -88,7 +94,7 @@ export class TaskReportsComponent implements OnInit {
 
   getChartSummary(){
     this.viewState = 1;
-    this.getTskplans(2);
+    this.getTskplans(2,0);
   }
 
   getChart(){
@@ -148,6 +154,38 @@ export class TaskReportsComponent implements OnInit {
     this.getChart();
   }
 
+  updateDate(a=undefined){
+    
+    if(a==0){
+      this.current_date = new Date();
+      this.current_year = this.current_date.getFullYear()
+      this.current_month = this.current_date.getMonth()
+    }
+    if(a==1){
+      if(this.current_month>11){
+        this.current_month = 1;
+        this.current_year = this.current_year+a;
+      }
+      else{
+        this.current_month = this.current_month+a;
+      }
+    }
+    if(a==-1){
+      if(this.current_month<2){
+        this.current_month = 12;
+        this.current_year = this.current_year+a;
+      }
+      else{
+        this.current_month = this.current_month+a;
+      }
+    }
+    this.current_month_name=this.monthNames[this.current_month];
+    this.from_date = this.current_year+'-'+(this.current_month)+'-01';
+    let lastDate = new Date(this.current_year,this.current_month,0).getDate();
+    this.to_date = this.current_year+'-'+(this.current_month)+'-'+lastDate;
+    this.getTskplans(2, 0, this.current_year, this.current_month+1);
+  }
+
   updateMatMoves(){
     this.material = this.material.replace(/\.| /g,"");
     console.log(this.material)
@@ -161,12 +199,10 @@ export class TaskReportsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTskplans(2);
-    let dt = new Date()
-    this.record_year = dt.getFullYear();
-    this.record_month = dt.getMonth();
-    this.apiData.getAreas()
-      .subscribe(locations => this.bus = locations);
+    this.getTskplans(2, 0);
+    this.updateDate(0)
+    //this.apiData.getAreas()
+    //  .subscribe(locations => this.bus = locations);
   }
   
   ngAfterViewInit(): void {

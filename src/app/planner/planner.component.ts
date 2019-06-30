@@ -53,8 +53,8 @@ export class PlannerComponent implements OnInit {
   }
   
   //Get the task(s)
-  getTaskplans(id){
-    this.apiData.getTaskplans(id)
+  getTaskplans(state, id = 0){
+    this.apiData.getTaskplans(state, id)
     .subscribe(tps => this.taskplans = tps)
   }
   

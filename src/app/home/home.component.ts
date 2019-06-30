@@ -58,8 +58,8 @@ export class HomeComponent implements OnInit {
   }
 
   //Get the closed task(s)
-  getTskplans(id){
-    this.apiData.getTaskplans(id)
+  getTskplans(state, id = 0){
+    this.apiData.getTaskplans(state, id)
     .subscribe(tp => this.tskplans = tp);
   }
 

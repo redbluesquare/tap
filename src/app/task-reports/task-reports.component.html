@@ -14,9 +14,9 @@
   </div>
   <div class="clearfix"></div>
   <div class="col-sm-8" *ngIf="viewState==1">
-    <h1>Task Summary Report {{ record_year+'-'+("0" + (record_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
-        <button class="btn btn-default pull-right">></button> 
-        <button class="btn btn-default pull-right"><</button> 
+    <h1>Task Summary Report {{ current_year+'-'+("0" + (current_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
+        <button class="btn btn-default pull-right" (click)="updateDate(1)">></button> 
+        <button class="btn btn-default pull-right" (click)="updateDate(-1)"><</button> 
     </h1>
     <canvas id="canvas"></canvas>
   </div>
@@ -38,7 +38,7 @@
   <div class="col-sm-12" *ngIf="viewState==2">
     <div class="row">
       <div class="col-sm-8">
-          <h1>Material Report {{ record_year+'-'+("0" + (record_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
+          <h1>Material Report {{ current_year+'-'+("0" + (current_month)).slice(-2)+'-01' | date: 'MMM yyyy'}}
             <button class="btn btn-default pull-right">></button> 
             <button class="btn btn-default pull-right"><</button> 
           </h1>
@@ -91,7 +91,7 @@
   <div class="col-sm-12" *ngIf="viewState==3">
     <div class="row">
       <div class="col-sm-8">
-        <h1>Location Report {{ record_year+'-'+("0" + (record_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
+        <h1>Location Report {{ current_year+'-'+("0" + (current_month+1)).slice(-2)+'-01' | date: 'MMM yyyy'}}
           <button class="btn btn-default pull-right">></button> 
           <button class="btn btn-default pull-right"><</button> 
         </h1>

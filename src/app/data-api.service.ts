@@ -103,12 +103,8 @@ export class DataApiService {
     return this.http.get<any[]>(this.deliveriesUrl+dss_id);
   }
 
-  getTaskplans(status = 0, id = 0): Observable<any[]> {
-    this.data = '';
-    if(id !=0){
-      this.data = '/'+id.toString()
-    }
-    return this.http.get<any[]>(this.taskplansUrl+status.toString()+this.data)
+  getTaskplans(status = 0, id = 0, year = 0, month = 0): Observable<any[]> {
+    return this.http.get<any[]>(this.taskplansUrl+status.toString()+'/'+id.toString()+'/'+year.toString()+'/'+month.toString())
   }
 
   getTaskProcesses(status = 0): Observable<any[]> {

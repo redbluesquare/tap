@@ -27,100 +27,71 @@
       </div>
     </div>
 </div>
-<div class="row" *ngIf="id==23">
-  <div class="col-sm-9">
-    <table class="table" *ngIf="inv_status>=1">
+<div class="inv-container row" *ngIf="id==23">
+  <div class="top-left">
+    <div class="tlt">
+      <button class="btn btn-sm btn-default" (click)="clearInvoice()">Close</button>
+      <button class="btn btn-sm btn-default">Validate</button>
+      <button class="btn btn-sm btn-warning">Raise Dispute</button>
+      <button class="btn btn-sm btn-primary">Get Approval Text</button>
+      <button class="btn btn-sm btn-success pull-right" (click)="saveInvoice()">Save</button>
+    </div>
+    <div class="tlm1">
+      <p>Invoice #: {{invoice_number}}</p>
+      <p>Vendor: {{vendor_name}}</p>
+      <p>Account #: {{account_number}}</p>
+    </div>
+    <div class="tlm2">
+        <p>Invoice Date: {{invoice_date}}</p>
+        <p>Invoice Value: {{invoice_value}}</p>
+        <p>Barcode: {{barcode}}</p>
+    </div>
+    <div class="tlm3">
+        <p>Debit Info</p><p><input class="form-control" [(ngModel)]="debit_number" placeholder="Dr #"/>
+          <input class="form-control" [(ngModel)]="debit_value" placeholder="Dr Value"/></p>
+    </div>
+    <div class="tlm4">
+      <p>Cr Info</p>
+      <p><input class="form-control" [(ngModel)]="credit_number" placeholder="Cr #" />
+        <input class="form-control" [(ngModel)]="credit_value" placeholder="Cr Value" /></p>
+    </div>
+  </div>
+  <div class="top-right" *ngIf="inv_status==2">
+    <p>Pick up Date: {{pick_up_date}}<br>
+    Con #: {{consignment_number}}<br>
+    Customer Ref:{{customer_reference}}<br>
+    Del Post Code: {{delivery_post_code}}<br>
+    WMS Pcs / Wgt / Rate: {{no_of_pcls+" | "+total_weight+" | "+calc_rate}}<br>
+    Inv Pcs / Wgt / Rate: {{total_pieces+" | "+billed_weight+" | "+inv_line_value}}</p>
+    <p><input [(ngModel)]="cost_center" class="form-control" placeholder="Cost Center"/>
+    <input [(ngModel)]="calc_diff" class="form-control" placeholder="Calc Diff."/>
+    <input [(ngModel)]="status" class="form-control" placeholder="Status"/>
+    <input [(ngModel)]="inv_comment" class="form-control" placeholder="Comment"/></p>
+
+    <button class="btn btn-default col-sm-12" (click)="hideInvLine()">Hide</button><br>
+    <button class="btn btn-success col-sm-12">Save Inv Line</button>
+  </div>
+  <div class="top-right" *ngIf="inv_status<2">
+    <h3>Open Invoices</h3>
+    <table class="table table-sm table-striped">
       <thead>
         <tr>
-          <td colspan="1">
-              <button class="btn btn-default" (click)="clearInvoice()">Close</button>
-          </td>
-          <td colspan="2">
-            <button class="btn btn-default">Validate</button>
-          </td>
-          <td colspan="2">
-            <button class="btn btn-warning">Raise Dispute</button>
-          </td>
-          <td colspan="2">
-            <button class="btn btn-primary">Get Approval Text</button>
-            <button class="btn btn-success pull-right" (click)="saveInvoice()">Save</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Invoice #</td>
-          <td>Vendor <br>
-            Account #
-          </td>
-          <td>Barcode</td>
-          <td>Invoice Date<br>
-            Invoice Value</td>
-          <td>Debit Info</td>
-          <td>Cr Info</td>
-          <td width="30%">Comment</td>
+          <th>Inv. No.</th>
+          <th>Inv. Date</th>
+          <th>Value (&pound;)</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{{invoice_number}}</td>
-          <td>{{vendor_name}}<br>
-            {{account_number}}</td>
-          <td>{{barcode}}</td>
-          <td>{{invoice_date}}<br>
-            {{invoice_value}}</td>
-          <td>
-            <input class="form-control" [(ngModel)]="debit_number" placeholder="Dr #"/>
-            <input class="form-control" [(ngModel)]="debit_value" placeholder="Dr Value"/></td>
-          <td>
-            <input class="form-control" [(ngModel)]="credit_number" placeholder="Cr #" />
-            <input class="form-control" [(ngModel)]="credit_value" placeholder="Cr Value" /></td>
-          <td><textarea rows="3" class="form-control" [(ngModel)]="comment"></textarea></td>
+        <tr *ngFor="let o_inv of open_invoices" (click)="showInvoice(o_inv)">
+          <td>{{o_inv.invoice_number}}</td>
+          <td>{{o_inv.invoice_date}}</td>
+          <td class="text-right">{{o_inv.invoice_value}}</td>
         </tr>
       </tbody>
     </table>
-    <hr>
-    <div class="row" *ngIf="inv_status==2">
-      <div class="col-sm-4">
-        <p>Pick up Date: {{pick_up_date}}<br>
-        Con #: {{consignment_number}}<br>
-        Customer Ref:{{customer_reference}}<br>
-        Del Post Code: {{delivery_post_code}}<br>
-        WMS Pcs / Wgt / Rate: {{no_of_pcls+" | "+total_weight+" | "+calc_rate}}<br>
-        Inv Pcs / Wgt / Rate: {{total_pieces+" | "+billed_weight+" | "+inv_line_value}}</p>
-        <p><input [(ngModel)]="cost_center" class="form-control" placeholder="Cost Center"/><br>
-        <input [(ngModel)]="calc_diff" class="form-control" placeholder="Calc Diff."/><br>
-        <input [(ngModel)]="status" class="form-control" placeholder="Status"/><br>
-        <input [(ngModel)]="inv_comment" class="form-control" placeholder="Comment"/></p>
-      </div>
-      <div class="col-sm-2">
-          <button class="btn btn-default col-sm-12" (click)="hideInvLine()">Hide</button><br>
-          <button class="btn btn-success col-sm-12">Save Inv Line</button>
-      </div>
-      <div class="col-sm-6">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <td>PGI Date</td>
-              <td>Ship to Party</td>
-              <td>Delivery #</td>
-              <td>Route</td>
-              <td>Parcel #</td>
-              <td>Weight</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let del of deliveries">
-              <td>{{del.ship_close_date}}</td>
-              <td>{{del.ship_to_party}}</td>
-              <td>{{del.delivery}}</td>
-              <td>{{del.route_code}}</td>
-              <td>{{del.parcel_no}}</td>
-              <td>{{del.parcel_weight}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <table class="table table-striped" *ngIf="inv_status==1">
+  </div>
+  <div class="middle-left">
+    <table class="table table-striped" *ngIf="inv_status>=1">
       <thead>
         <tr>
           <td>Pickup Date</td>
@@ -151,24 +122,34 @@
       </tbody>
     </table>
   </div>
-  <div class="col-sm-3">
-    <h3>Open Invoices</h3>
-    <table class="table table-sm table-striped">
+  <div class="bottom-left">
+    <table class="table table-striped">
       <thead>
         <tr>
-          <th>Inv. No.</th>
-          <th>Inv. Date</th>
-          <th>Value (&pound;)</th>
+          <td>PGI Date</td>
+          <td>Ship to Party</td>
+          <td>Delivery #</td>
+          <td>Route</td>
+          <td>Parcel #</td>
+          <td>Weight</td>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let o_inv of open_invoices" (click)="showInvoice(o_inv)">
-          <td>{{o_inv.invoice_number}}</td>
-          <td>{{o_inv.invoice_date}}</td>
-          <td class="text-right">{{o_inv.invoice_value}}</td>
+        <tr *ngFor="let del of deliveries">
+          <td>{{del.ship_close_date}}</td>
+          <td>{{del.ship_to_party}}</td>
+          <td>{{del.delivery}}</td>
+          <td>{{del.route_code}}</td>
+          <td>{{del.parcel_no}}</td>
+          <td>{{del.parcel_weight}}</td>
         </tr>
       </tbody>
     </table>
+  </div>
+  <div class="bottom-middle"><p>Comment</p>
+    <textarea rows="3" class="form-control" [(ngModel)]="comment"></textarea>
+  </div>
+  <div class="bottom-right">
     <h3>Closed Invoices</h3>
     <table class="table table-sm table-striped">
       <thead>
@@ -188,4 +169,3 @@
     </table>
   </div>
 </div>
-

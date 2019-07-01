@@ -201,8 +201,8 @@ export class TaskReportsComponent implements OnInit {
   ngOnInit() {
     this.getTskplans(2, 0);
     this.updateDate(0)
-    //this.apiData.getAreas()
-    //  .subscribe(locations => this.bus = locations);
+    this.apiData.getAreas()
+      .subscribe(locations => this.bus = locations);
   }
   
   ngAfterViewInit(): void {

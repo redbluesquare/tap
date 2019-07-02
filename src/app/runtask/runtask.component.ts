@@ -168,6 +168,41 @@ export class RuntaskComponent implements OnInit {
     this.inv_status = 1;
   }
 
+  saveInvLine(){
+    this.data = {
+      pick_up_date:this.pick_up_date,
+      invoice_number:this.invoice_number,
+      consignment_number:this.consignment_number,
+      customer_reference:this.customer_reference,
+      cost_center:this.cost_center,
+      calc_rate:this.calc_rate,
+      calc_diff:this.calc_diff,
+      status:this.status,
+      inv_comment:this.inv_comment
+    }
+    this.apiData.saveInvLine(this.data)
+      .subscribe(result => {
+        this.getInvoiceDetails(this.invoice_number);
+        this.pick_up_date = '';
+        this.consignment_number = '';
+        this.customer_reference = '';
+        this.cost_center = '';
+        this.delivery_post_code = '';
+        this.no_of_pcls = 0;
+        this.total_weight = 0;
+        this.calc_rate = 0;
+        this.total_pieces = 0;
+        this.billed_weight = 0;
+        this.inv_line_value = 0;
+        this.calc_diff = 0;
+        this.status = 0;
+        this.inv_comment = '';
+        this.inv_status = 1;
+      });
+    
+    
+  }
+
   selectCarrier(carrier){
     this.carrier = carrier;
     this.inv_status = 1;
@@ -230,7 +265,6 @@ export class RuntaskComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.comment = "123"
     this.adapter.setLocale('gb');
     //Get the task
     this.getTaskplans(0,+this.route.snapshot.paramMap.get('id'));

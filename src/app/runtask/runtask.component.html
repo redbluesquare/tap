@@ -34,6 +34,7 @@
       <button class="btn btn-sm btn-default">Validate</button>
       <button class="btn btn-sm btn-warning">Raise Dispute</button>
       <button class="btn btn-sm btn-primary">Get Approval Text</button>
+      <button class="btn btn-sm btn-success pull-right" (click)="approveInvoice()">Mark as Approved</button>
       <button class="btn btn-sm btn-success pull-right" (click)="saveInvoice()">Save</button>
     </div>
     <div class="tlm1">
@@ -63,13 +64,21 @@
     Del Post Code: {{delivery_post_code}}<br>
     WMS Pcs / Wgt / Rate: {{no_of_pcls+" | "+total_weight+" | "+calc_rate}}<br>
     Inv Pcs / Wgt / Rate: {{total_pieces+" | "+billed_weight+" | "+inv_line_value}}</p>
-    <p><input [(ngModel)]="cost_center" class="form-control" placeholder="Cost Center"/>
-    <input [(ngModel)]="calc_diff" class="form-control" placeholder="Calc Diff."/>
-    <input [(ngModel)]="status" class="form-control" placeholder="Status"/>
+    <div class="row">
+        <div class="col-md-4">Cost Center: </div>
+        <div class="col-md-8"><input [(ngModel)]="cost_center" class="form-control" placeholder="Cost Center"/></div>
+        <div class="col-md-4">Calc. Diff.: </div>
+        <div class="col-md-8"><input [(ngModel)]="calc_diff" class="form-control" placeholder="Calc Diff."/></div>
+        <div class="col-md-4">Status: </div>
+        <div class="col-md-8"><input [(ngModel)]="status" class="form-control" placeholder="Status"/></div>
+    </div>
+    
+    <p>
+    
     <input [(ngModel)]="inv_comment" class="form-control" placeholder="Comment"/></p>
 
     <button class="btn btn-default col-sm-12" (click)="hideInvLine()">Hide</button><br>
-    <button class="btn btn-success col-sm-12">Save Inv Line</button>
+    <button class="btn btn-success col-sm-12" (click)="saveInvLine()">Save Inv Line</button>
   </div>
   <div class="top-right" *ngIf="inv_status<2">
     <h3>Open Invoices</h3>
@@ -147,7 +156,7 @@
     </table>
   </div>
   <div class="bottom-middle"><p>Comment</p>
-    <textarea rows="3" class="form-control" [(ngModel)]="comment"></textarea>
+    <textarea rows="6" class="form-control" [(ngModel)]="comment"></textarea>
   </div>
   <div class="bottom-right">
     <h3>Closed Invoices</h3>

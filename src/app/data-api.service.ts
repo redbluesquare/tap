@@ -131,6 +131,11 @@ export class DataApiService {
     return this.http.get<any[]>(this.tasksUrl+this.url)
   }
 
+  saveInvLine(data): Observable<any> {
+
+    return this.http.post<any>(this.invoiceDetailsUrl+this.url, data)
+  }
+
   startProcess(tp, v1, v2, v3): Observable<any> {
     if(v1!=undefined){
       v1 = '/'+v1

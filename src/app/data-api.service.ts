@@ -162,4 +162,8 @@ export class DataApiService {
   updateTP(data): Observable<any> {
     return this.http.post<any>(this.taskplansUrl, data)
   }
+
+  validateInvoice(invoice_number): Observable<any> {
+    return this.http.post<any>(this.invoicesUrl+'0/'+invoice_number.toString()+'/validate', invoice_number)
+  }
 }

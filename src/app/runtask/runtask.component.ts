@@ -255,13 +255,21 @@ export class RuntaskComponent implements OnInit {
     this.apiData.startProcess(tp,this.var1, this.var2, this.var3)
     .subscribe(ut => {
         //update message as process complete
-        console.log(ut);
         this.messageText = tp.task_detail+"(COMPLETE)"
       });
   }
 
   resetCarriers(){
     this.inv_status = 0;
+  }
+
+  validateInvoice(){
+    this.apiData.validateInvoice(this.invoice_number)
+    .subscribe(invoice => {
+        if(invoice == true){
+          this.getInvoiceDetails(invoice.invoice_number);
+        }
+      });
   }
 
   ngOnInit() {

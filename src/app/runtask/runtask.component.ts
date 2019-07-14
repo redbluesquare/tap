@@ -150,7 +150,6 @@ export class RuntaskComponent implements OnInit {
   }
 
   getApproveText(){
-    //TODO: add code for getApproveText
     this.apiData.getApproveText(this.invoice_number)
     .subscribe(invoiceText => {
         this.messageShow = 1;  

@@ -32,26 +32,33 @@
     <div class="tlt">
       <button class="btn btn-sm btn-default" (click)="clearInvoice()">Close</button>
       <button class="btn btn-sm btn-default" (click)="validateInvoice()">Validate</button>
-      <button class="btn btn-sm btn-warning">Raise Dispute</button>
-      <button class="btn btn-sm btn-primary">Get Approval Text</button>
-      <button class="btn btn-sm btn-success pull-right" (click)="approveInvoice()">Mark as Approved</button>
+      <button class="btn btn-sm btn-warning" (click)="raiseDispute()">Raise Dispute</button>
+      <button class="btn btn-sm btn-primary" (click)="getApproveText()">Get Approval Text</button>
+      <button class="btn btn-sm btn-default" (click)="dlInvoices()">Download Invoices</button>
+      <button class="btn btn-sm btn-success pull-right" (click)="approveInvoice()">Approve Invoice</button>
       <button class="btn btn-sm btn-success pull-right" (click)="saveInvoice()">Save</button>
     </div>
     <div class="tlm1">
       <p>Invoice #: {{invoice_number}}</p>
       <p>Vendor: {{vendor_name}}</p>
       <p>Account #: {{account_number}}</p>
+      <p>Barcode: {{barcode}}</p>
     </div>
     <div class="tlm2">
-        <p>Invoice Date: {{invoice_date}}</p>
-        <p>Invoice Value: {{invoice_value}}</p>
-        <p>Barcode: {{barcode}}</p>
+      <p>Invoice Date: {{invoice_date}}</p>
+      <p>Invoice Value: {{invoice_value}}</p>
     </div>
     <div class="tlm3">
-        <p>Debit Info</p><p><input class="form-control" [(ngModel)]="debit_number" placeholder="Dr #"/>
-          <input class="form-control" [(ngModel)]="debit_value" placeholder="Dr Value"/></p>
+      <p>Dispute Info</p>
+      <p><input class="form-control" [(ngModel)]="dispute_number" placeholder="Dispute #" />
+          <input class="form-control" [(ngModel)]="dispute_date" placeholder="Dispute Date" /></p>
+        
     </div>
     <div class="tlm4">
+      <p>Debit Info</p><p><input class="form-control" [(ngModel)]="debit_number" placeholder="Dr #"/>
+        <input class="form-control" [(ngModel)]="debit_value" placeholder="Dr Value"/></p>
+    </div>
+    <div class="tlm5">
       <p>Cr Info</p>
       <p><input class="form-control" [(ngModel)]="credit_number" placeholder="Cr #" />
         <input class="form-control" [(ngModel)]="credit_value" placeholder="Cr Value" /></p>
@@ -80,7 +87,7 @@
     <button class="btn btn-default col-sm-12" (click)="hideInvLine()">Hide</button><br>
     <button class="btn btn-success col-sm-12" (click)="saveInvLine()">Save Inv Line</button>
   </div>
-  <div class="top-right" *ngIf="inv_status<2">
+  <div class="top-right" *ngIf="inv_status < 2">
     <h3>Open Invoices</h3>
     <table class="table table-sm table-striped">
       <thead>

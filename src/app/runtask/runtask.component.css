@@ -17,17 +17,18 @@
 }
 .top-left{grid-area: top-left;
     width:100%; display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 
-    "top-left-top top-left-top top-left-top top-left-top"
-    "top-left-middle1 top-left-middle2 top-left-middle3 top-left-middle4"}
+    "top-left-top top-left-top top-left-top top-left-top top-left-top"
+    "top-left-middle1 top-left-middle2 top-left-middle3 top-left-middle4 top-left-middle5"}
 .tlt{grid-area: top-left-top;margin:0px 5px;}
 .tlt button{margin:0px 5px;}
 .tlm1{grid-area: top-left-middle1;line-height:0.8em;margin: 5px 0px 0px 5px;}
 .tlm2{grid-area: top-left-middle2;line-height:0.8em;margin: 5px 0px 0px 5px;}
 .tlm3{grid-area: top-left-middle3;line-height:0.8em;margin: 5px 0px 0px 5px;}
 .tlm4{grid-area: top-left-middle4;line-height:0.8em;margin: 5px 0px 0px 5px;}
+.tlm5{grid-area: top-left-middle5;line-height:0.8em;margin: 5px 0px 0px 5px;}
 .top-right{grid-area: top-right;}
 .middle-left{grid-area: middle-left;}
 .bottom-left{grid-area: bottom-left;}

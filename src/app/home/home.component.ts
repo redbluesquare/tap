@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataApiService } from '../data-api.service';
 import { Router } from '@angular/router';
+import {CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,20 @@ export class HomeComponent implements OnInit {
   constructor(private apiData:DataApiService, 
     private router:Router) { }
 
+  
+  drop(event: CdkDragDrop<any[]>) {
+    moveItemInArray(this.taskplans, event.previousIndex, event.currentIndex);
+    this.getListOrder(this.taskplans);
+    this.apiData.updateTaskPlanPrio(this.taskplans)
+      .subscribe(tp =>{console.log(tp)});
+  }
+
+  getListOrder(thelist){
+    for(let i = 0;i < thelist.length; i++){
+      thelist[i].priority = i
+    }
+  }
+  
   actionTask(id, action, task_id){
     this.data = {
       "ddc_tp_id":id,

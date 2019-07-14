@@ -22,6 +22,7 @@ export class DataApiService {
   private materialUrl = 'http://localhost:5001/materials/';
   private taskactionsUrl = 'http://localhost:5001/taskactions/';  // URL to task actions api
   private taskplansUrl = 'http://localhost:5001/taskplans/';  // URL to task planner api
+  private taskplanprioUrl = 'http://localhost:5001/taskplanprio/';  // URL to task planner priority api
   private taskprocessUrl = 'http://localhost:5001/taskprocesses/' //URL to task process details api
   private tasksUrl = 'http://localhost:5001/tasks/';  // URL to tasks api
   private usertasksUrl = 'http://localhost:5001/usertasks/';  // URL to user tasks api
@@ -50,6 +51,10 @@ export class DataApiService {
     return this.http.post<any>(this.taskplansUrl, data)
   }
 
+  approveInvoice(data): Observable<any> {
+    return this.http.post<any>(this.invoicesUrl+'0/'+data.invoice_number, data)
+  }
+
   deleteCategory(id): Observable<any> {
     return this.http.delete<any>(this.categoriesUrl+id.toString())
   }
@@ -62,6 +67,14 @@ export class DataApiService {
 
   deleteTaskPlan(id): Observable<any> {
     return this.http.delete<any>(this.taskplansUrl+id.toString())
+  }
+
+  dlInvoices(): Observable<any> {
+    return this.http.get<any>(this.invoicesUrl+'0/0/download');
+  }
+
+  getApproveText(invoice_number): Observable<any> {
+    return this.http.get<any>(this.invoicesUrl+'0/'+invoice_number+'/approvaltext')
   }
 
   getAreas(): Observable<any> {
@@ -131,6 +144,14 @@ export class DataApiService {
     return this.http.get<any[]>(this.tasksUrl+this.url)
   }
 
+  raiseDispute(invoice_number): Observable<any> {
+    return this.http.post<any>(this.invoicesUrl+'0/'+invoice_number+'/dispute', invoice_number)
+  }
+
+  saveInvoice(data): Observable<any> {
+    return this.http.post<any>(this.invoicesUrl+'0/'+data.invoice_number, data)
+  }
+
   saveInvLine(data): Observable<any> {
 
     return this.http.post<any>(this.invoiceDetailsUrl+this.url, data)
@@ -163,7 +184,11 @@ export class DataApiService {
     return this.http.post<any>(this.taskplansUrl, data)
   }
 
+  updateTaskPlanPrio(data): Observable<any> {
+    return this.http.post<any>(this.taskplanprioUrl, data)
+  }
+
   validateInvoice(invoice_number): Observable<any> {
-    return this.http.post<any>(this.invoicesUrl+'0/'+invoice_number.toString()+'/validate', invoice_number)
+    return this.http.post<any>(this.invoicesUrl+'0/'+invoice_number+'/validate', invoice_number)
   }
 }

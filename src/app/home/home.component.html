@@ -24,21 +24,19 @@
       <thead>
         <tr style="font-size:0.9em">
           <th>ID</th>
-          <th>Task</th>
+          <th style="width:40%">Task</th>
           <th>Planned Time (Min)</th>
           <th>Planned Start</th>
-          <th>Priority</th>
           <th> </th>
           <th> </th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let tp of taskplans" (click)="getTask(tp)">
+      <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+        <tr class="task-list" cdkDrag *ngFor="let tp of taskplans" (click)="getTask(tp)">
           <td>{{tp.ddc_tp_id}}</td>
           <td>{{tp.task_title}}</td>
           <td>{{ (tp.planned_time/60) | number: '1.0-1'}}</td>
           <td>{{tp.planned_date.split(" ")[1]}}</td>
-          <td>{{tp.priority}}</td>
           <td>
             <span *ngIf="tp.start_time!=null">{{tp.start_time*1000 | date: 'HH:mm:ss'}}</span>
             <button *ngIf="tp.start_time==null" class="btn btn-success" (click)="actionTask(tp.ddc_tp_id,'start',tp.task_id)">Start</button>

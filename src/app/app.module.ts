@@ -7,6 +7,7 @@ import { FilterPipe } from './filter.pipe';
 import { MatNativeDateModule } from '@angular/material'
 import { MatDatepickerModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -28,7 +29,7 @@ import { RuntaskComponent } from './runtask/runtask.component';
     PlannerComponent,
     FilterPipe,
     TaskReportsComponent,
-    RuntaskComponent
+    RuntaskComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,12 +40,13 @@ import { RuntaskComponent } from './runtask/runtask.component';
     MatNativeDateModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    
+    DragDropModule
   ],
   exports: [
     MatNativeDateModule,
     MatDatepickerModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

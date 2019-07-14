@@ -14,7 +14,7 @@ export class RuntaskComponent implements OnInit {
   constructor(private apiData:DataApiService,
     private route: ActivatedRoute,
     private adapter: DateAdapter<any>) { }
-
+  
   account_number:string = '';
   barcode:string;
   billed_weight:number;
@@ -34,6 +34,8 @@ export class RuntaskComponent implements OnInit {
   data:any;
   debit_number:string;
   debit_value:number;
+  dispute_number:string;
+  dispute_date:string;
   dss_id:number;
   editInvLine:number = 0;
   id:number;
@@ -64,19 +66,30 @@ export class RuntaskComponent implements OnInit {
   var3:string;
   vendor_name:string;
 
-  addInvoiceline(){
-    this.inv_status=3;
-    //Get all data to create the invoice line
+  approveInvoice(){
     this.data = {
-      'account_number':this.account_number,
-      'service_code':this.service_code,
-      'invoice_number':this.invoice_number,
-      'invoice_date':this.invoice_date,
-      'line_reference':this.line_reference,
-      'invoice_line_price':this.invoice_line_price
+      invoice_number:this.invoice_number,
+      comment:this.comment,
+      account_number:this.account_number,
+      credit_number:this.credit_number,
+      dispute_number:this.dispute_number,
+      dispute_date:this.dispute_date,
+      debit_number:this.debit_number,
+      credit_value:this.credit_value,
+      debit_value:this.debit_value,
+      inv_status:this.inv_status
     }
-    this.apiData.addInvoice(this.data)
-      .subscribe(invoices => this.invoices = invoices)
+    this.apiData.approveInvoice(this.data)
+      .subscribe(invoice => {
+        if(invoice == true){
+          this.messageShow = 1;
+          this.messageText = 'Invoice Approved';
+          this.clearInvoice()
+          this.getInvoices(0)
+          this.getInvoices(1)
+        }
+      })
+
   }
   
   checkComment(){
@@ -96,11 +109,24 @@ export class RuntaskComponent implements OnInit {
     this.vendor_name = '';
     this.invoice_value = 0;
     this.barcode = '';
+    this.dispute_number = '';
+    this.dispute_date = '';
     this.credit_number = '';
     this.debit_number = '';
     this.credit_value = 0;
     this.debit_value = 0;
     this.inv_status = 0;
+  }
+
+  dlInvoices(){
+    
+    this.apiData.dlInvoices()
+      .subscribe(invoice => {
+        if(invoice == true){
+          this.messageShow = 1;
+          this.messageText = 'Invoices downloaded';
+        }
+      })
   }
 
   editInvline(inv){
@@ -123,6 +149,15 @@ export class RuntaskComponent implements OnInit {
     this.inv_status = 2;
   }
 
+  getApproveText(){
+    //TODO: add code for getApproveText
+    this.apiData.getApproveText(this.invoice_number)
+    .subscribe(invoiceText => {
+        this.messageShow = 1;  
+        this.messageText = invoiceText.message;
+      });
+  }
+
   //Get the open task(s)
   getInvoices(state, invoice = ''){
     this.apiData.getInvoices(state, invoice)
@@ -137,6 +172,7 @@ export class RuntaskComponent implements OnInit {
   }
   //Get the open task(s)
   getInvoiceDetails(invoice_number){
+    this.messageShow = 1;
     this.apiData.getInvoiceDetails(invoice_number)
     .subscribe(invoice => this.invoice = invoice);
   }
@@ -166,6 +202,50 @@ export class RuntaskComponent implements OnInit {
     this.status = 0;
     this.inv_comment = '';
     this.inv_status = 1;
+  }
+
+  raiseDispute(){
+    this.data = {
+      invoice_number:this.invoice_number,
+      comment:this.comment,
+      account_number:this.account_number,
+      credit_number:this.credit_number,
+      dispute_number:this.dispute_number,
+      dispute_date:this.dispute_date,
+      debit_number:this.debit_number,
+      credit_value:this.credit_value,
+      debit_value:this.debit_value
+    }
+    //raise the dispute then update the 
+    //dispute info, credit and debit values
+    this.apiData.raiseDispute(this.data)
+      .subscribe(invoice => {
+        if(invoice == true){
+          this.getInvoiceDetails(this.invoice_number);
+        }
+      })
+  }
+
+  saveInvoice(){
+    this.data = {
+      invoice_number:this.invoice_number,
+      comment:this.comment,
+      account_number:this.account_number,
+      credit_number:this.credit_number,
+      dispute_number:this.dispute_number,
+      dispute_date:this.dispute_date,
+      debit_number:this.debit_number,
+      credit_value:this.credit_value,
+      debit_value:this.debit_value
+    }
+    this.apiData.saveInvoice(this.data)
+      .subscribe(invoice => {
+        if(invoice == true){
+          this.messageShow = 1;
+          this.messageText = 'Invoice saved'
+        }
+      })
+
   }
 
   saveInvLine(){
@@ -203,11 +283,6 @@ export class RuntaskComponent implements OnInit {
     
   }
 
-  selectCarrier(carrier){
-    this.carrier = carrier;
-    this.inv_status = 1;
-  }
-
   showInvoice(invoice){
     this.getInvoiceDetails(invoice.invoice_number);
     this.invoice_number = invoice.invoice_number;
@@ -217,35 +292,13 @@ export class RuntaskComponent implements OnInit {
     this.vendor_name = invoice.vendor_name;
     this.invoice_value = invoice.invoice_value;
     this.barcode = invoice.barcode;
+    this.dispute_number = invoice.dispute_number;
+    this.dispute_date = invoice.dispute_date;
     this.credit_number = invoice.credit_number;
     this.debit_number = invoice.debit_number;
     this.credit_value = invoice.credit_value;
     this.debit_value = invoice.debit_value;
     this.inv_status = 1;
-  }
-
-  startInvoice(a){
-    if(a == 0){
-      if(this.account_number == ''){
-        this.comment = 'Please select an account';
-      }
-      else{
-        this.inv_status=2;
-        this.invoice_number = '';
-        this.invoice_date = '';
-      }
-    }
-    if(a == 1){
-      if(this.invoice_number == ''){
-        this.comment = 'Please Enter the invoice number';
-        //Create the invoice record
-        
-      }
-      else{
-        this.addInvoiceline()
-        
-      }
-    }
   }
 
   startProcess(tp){
@@ -259,15 +312,11 @@ export class RuntaskComponent implements OnInit {
       });
   }
 
-  resetCarriers(){
-    this.inv_status = 0;
-  }
-
   validateInvoice(){
     this.apiData.validateInvoice(this.invoice_number)
     .subscribe(invoice => {
         if(invoice == true){
-          this.getInvoiceDetails(invoice.invoice_number);
+          this.getInvoiceDetails(this.invoice_number);
         }
       });
   }

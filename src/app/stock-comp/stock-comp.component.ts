@@ -15,10 +15,10 @@ export class StockCompComponent implements OnInit {
   
   chgstate:number;
   error_cat:number;
-  i:number;
+  i:number = 0;
   materials:any;
-  material:string;
-  plant:string;
+  material:string = '';
+  plant:string = '';
   remark:string;
   stock_discreps:any;
 

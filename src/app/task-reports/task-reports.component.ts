@@ -11,7 +11,7 @@ import { isNumber } from 'util';
 })
 export class TaskReportsComponent implements OnInit {
 
-  @ViewChild('myCanvas') myCanvas: ElementRef;
+  @ViewChild('myCanvas', {static:true}) myCanvas: ElementRef;
   public context: CanvasRenderingContext2D;
 
   action_qty:number=0;

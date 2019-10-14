@@ -116,6 +116,14 @@ export class DataApiService {
     return this.http.get<any[]>(this.deliveriesUrl+dss_id);
   }
 
+  getScDiscreps(material): Observable<any[]> {
+    return this.http.get<any[]>(this.materialUrl+'sc/get/'+material);
+  }
+
+  getScMaterials(): Observable<any[]> {
+    return this.http.get<any[]>(this.materialUrl+'scmats/get');
+  }
+
   getTaskplans(status = 0, id = 0, year = 0, month = 0): Observable<any[]> {
     return this.http.get<any[]>(this.taskplansUrl+status.toString()+'/'+id.toString()+'/'+year.toString()+'/'+month.toString())
   }
@@ -144,8 +152,8 @@ export class DataApiService {
     return this.http.get<any[]>(this.tasksUrl+this.url)
   }
 
-  raiseDispute(invoice_number): Observable<any> {
-    return this.http.post<any>(this.invoicesUrl+'0/'+invoice_number+'/dispute', invoice_number)
+  raiseDispute(data): Observable<any> {
+    return this.http.post<any>(this.invoicesUrl+'0/'+data.invoice_number+'/dispute', data)
   }
 
   saveInvoice(data): Observable<any> {

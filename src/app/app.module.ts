@@ -18,6 +18,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { PlannerComponent} from './planner/planner.component';
 import { TaskReportsComponent } from './task-reports/task-reports.component';
 import { RuntaskComponent } from './runtask/runtask.component';
+import { StockCompComponent } from './stock-comp/stock-comp.component';
+import { InvoicesComponent } from './invoices/invoices.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { RuntaskComponent } from './runtask/runtask.component';
     FilterPipe,
     TaskReportsComponent,
     RuntaskComponent,
+    StockCompComponent,
+    InvoicesComponent,
   ],
   imports: [
     BrowserModule,

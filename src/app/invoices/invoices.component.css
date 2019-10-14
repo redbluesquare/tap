@@ -1,16 +1,3 @@
-.axa-container{
-    margin-left: 5px; font-size: 12px;
-    font-family:'Courier New', Courier, monospace;
-    display:grid; width: 100%; height: 85vh;
-    grid-template-columns: 3fr 3fr 2fr;
-    grid-template-rows: 1fr 1fr 1fr 2fr;
-    grid-gap: 5px;
-    grid-template-areas: 
-    "top-left top-left top-right"
-    "middle-left middle-left top-right"
-    "middle-left middle-left bottom-right"
-    "bottom-left bottom-middle bottom-right";
-}
 .inv-container{
     margin-left: 5px; font-size: 12px;
     font-family:'Courier New', Courier, monospace;

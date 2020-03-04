@@ -36,6 +36,10 @@ export class StockCompComponent implements OnInit {
     this.getDiscreps();
   }
 
+  changeState(digit){
+    this.chgstate = digit;
+  }
+
   getDiscreps(){
     this.apiData.getScDiscreps(this.material)
       .subscribe(discreps => this.stock_discreps = discreps)

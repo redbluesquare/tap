@@ -4,9 +4,9 @@ import { HttpClientModule }    from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { FilterPipe } from './filter.pipe';
-import { MatNativeDateModule } from '@angular/material'
-import { MatDatepickerModule } from '@angular/material';
-import { MatFormFieldModule } from '@angular/material';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';

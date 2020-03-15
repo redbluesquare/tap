@@ -3,7 +3,6 @@
 # compiled output
 /tmp
 /out-tsc
-package-lock.json
 
 # dependencies
 /node_modules
@@ -38,3 +37,4 @@ testem.log
 .DS_Store
 Thumbs.db
 *.code-workspace
+package-lock.json
